@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Administrador - Shark Tank Energía Grupo EPM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --epm-green: #00A859;
+    --epm-green-light: #00D26A;
+    --epm-green-dark: #007A41;
+    --epm-yellow: #FDB913;
+    --epm-blue: #0033A0;
+    --bg-main: #F4F7F9;
+    --bg-card: #FFFFFF;
+    --border-light: #E2E8F0;
+    --border-medium: #CBD5E1;
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --text-heading: #0F172A;
+    --shadow-soft: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    --shadow-medium: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.025);
+    --shadow-heavy: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+
+    /* Colores del podio */
+    --gold: #FDB913;
+    --gold-dark: #C8930A;
+    --silver: #C0C4CC;
+    --silver-dark: #8B8E94;
+    --bronze: #CD7F32;
+    --bronze-dark: #8E5A24;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 30px 15px;
+    background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-attachment: fixed;
+}
+
+h1, h2, h3, .brand-font { font-family: 'Montserrat', sans-serif; }
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-heavy);
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--epm-green), var(--epm-blue), var(--epm-yellow));
+}
+
+/* HEADER */
+.header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border-light); padding-bottom: 25px; margin-bottom: 35px;
+    flex-wrap: wrap; gap: 20px;
+}
+.title-section h1 {
+    font-size: 32px; font-weight: 900; letter-spacing: -1px;
+    color: var(--text-heading); line-height: 1.1;
+}
+.title-section h1 span { color: var(--epm-green); }
+.title-section .subtitle {
+    color: var(--text-muted); font-size: 14px; margin-top: 6px;
+    font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+}
+.title-section .subtitle .admin-badge {
+    background: var(--epm-blue); color: #FFF;
+    padding: 3px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 800; letter-spacing: 1px;
+}
+.logo-epm-css {
+    background: var(--epm-green); color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 24px;
+    padding: 8px 22px;
+    border-radius: 14px 14px 14px 4px;
+    box-shadow: var(--shadow-soft);
+    display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+.logo-epm-css span {
+    font-weight: 400; margin-right: 4px; font-size: 18px;
+}
+
+/* TABS */
+.nav-tabs {
+    display: flex; gap: 15px; margin-bottom: 40px;
+    background: #F1F5F9; padding: 8px; border-radius: 16px;
+    border: 1px solid var(--border-light);
+    flex-wrap: wrap;
+}
+.tab-btn {
+    flex: 1; min-width: 180px; padding: 14px 18px;
+    background: transparent; color: var(--text-muted);
+    border: none; border-radius: 10px;
+    font-weight: 700; font-size: 14px; cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+.tab-btn:hover { color: var(--epm-green-dark); }
+.tab-btn.active {
+    background: var(--epm-green); color: #FFF;
+    box-shadow: 0 4px 14px rgba(0,168,89,0.3);
+}
+.tab-btn i { font-size: 16px; }
+
+.view-section { display: none; }
+.view-section.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* === KPI CARDS === */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+}
+.kpi-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+.kpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--epm-green);
+}
+.kpi-card.blue::before { background: var(--epm-blue); }
+.kpi-card.yellow::before { background: var(--epm-yellow); }
+.kpi-card.purple::before { background: #8B5CF6; }
+
+.kpi-label {
+    font-size: 11px; font-weight: 800; letter-spacing: 1.2px;
+    color: var(--text-muted); text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px;
+}
+.kpi-label i {
+    color: var(--epm-green); font-size: 14px;
+}
+.kpi-card.blue .kpi-label i { color: var(--epm-blue); }
+.kpi-card.yellow .kpi-label i { color: var(--epm-yellow); }
+.kpi-card.purple .kpi-label i { color: #8B5CF6; }
+
+.kpi-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px; font-weight: 900;
+    color: var(--text-heading);
+    line-height: 1;
+}
+.kpi-sub {
+    font-size: 12px; color: var(--text-muted);
+    margin-top: 6px; font-weight: 600;
+}
+
+/* === FILTROS === */
+.filters-bar {
+    background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+}
+.filters-bar label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 12px;
+    color: var(--text-heading); text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 8px;
+}
+.filters-bar label i { color: var(--epm-green); }
+
+.filter-pills {
+    display: flex; gap: 8px; flex-wrap: wrap;
+}
+.filter-pill {
+    background: #FFF;
+    border: 1px solid var(--border-medium);
+    color: var(--text-muted);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex; align-items: center; gap: 6px;
+}
+.filter-pill:hover {
+    border-color: var(--epm-green);
+    color: var(--epm-green-dark);
+    background: #F0FDF4;
+}
+.filter-pill.active {
+    background: var(--epm-green);
+    color: #FFF;
+    border-color: var(--epm-green);
+    box-shadow: 0 3px 10px rgba(0,168,89,0.25);
+}
+
+.search-input {
+    flex: 1; min-width: 200px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-medium);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+.search-input:focus {
+    border-color: var(--epm-green);
+    box-shadow: 0 0 0 3px rgba(0,168,89,0.15);
+}
+
+/* === PODIO === */
+.segment-podiums {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.podium-section {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+}
+
+.podium-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 30px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--border-light);
+    flex-wrap: wrap; gap: 14px;
+}
+
+.podium-section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 22px;
+    color: var(--text-heading);
+    display: flex; align-items: center; gap: 14px;
+}
+.podium-section-title .segment-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark));
+    color: #FFF;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(0,168,89,0.3);
+}
+.podium-section-meta {
+    display: flex; gap: 18px;
+    font-size: 12px; color: var(--text-muted); font-weight: 700;
+}
+.podium-section-meta span {
+    display: flex; align-items: center; gap: 6px;
+}
+
+/* Estructura del podio */
+.podium-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: end;
+    gap: 18px;
+    max-width: 850px;
+    margin: 0 auto 30px;
+    min-height: 320px;
+}
+
+.podium-place {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.podium-card {
+    background: #FFFFFF;
+    border: 2px solid var(--border-light);
+    border-radius: 16px;
+    padding: 18px 14px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+.podium-card:hover {
+    transform: translateY(-6px);
+}
+
+.podium-medal {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 24px;
+    color: #FFF;
+    margin: -42px auto 12px;
+    border: 4px solid #FFF;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    position: relative;
+}
+.podium-medal::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.5), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.podium-logo {
+    width: 70px; height: 70px;
+    margin: 0 auto 10px;
+    object-fit: contain;
+    object-position: center;
+}
+.podium-logo-fallback {
+    width: 70px; height: 70px;
+    margin: 0 auto 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark));
+    color: #FFF;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 18px;
+}
+
+.podium-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 14px;
+    color: var(--text-heading);
+    line-height: 1.2;
+    margin-bottom: 10px;
+    min-height: 34px;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.podium-score {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 32px;
+    color: var(--epm-green-dark);
+    line-height: 1;
+}
+.podium-score-sub {
+    font-size: 11px; color: var(--text-muted);
+    font-weight: 600; margin-top: 2px;
+}
+
+.podium-chips {
+    display: flex; gap: 5px; justify-content: center;
+    margin-top: 10px; flex-wrap: wrap;
+}
+.podium-chip {
+    font-size: 9px; padding: 3px 7px;
+    border-radius: 6px; font-weight: 800;
+    letter-spacing: 0.3px;
+}
+.podium-chip.shark {
+    background: rgba(0,168,89,0.12);
+    color: var(--epm-green-dark);
+}
+.podium-chip.publico {
+    background: rgba(0,51,160,0.10);
+    color: var(--epm-blue);
+}
+
+/* Base del podio (escalón visual) */
+.podium-base {
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    margin-top: -4px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 42px;
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Primer lugar - el más alto */
+.podium-place.first {
+    order: 2;
+}
+.podium-place.first .podium-medal {
+    background: linear-gradient(135deg, #FDE08D, var(--gold), var(--gold-dark));
+}
+.podium-place.first .podium-base {
+    height: 130px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+}
+.podium-place.first .podium-card {
+    border-color: var(--gold);
+    background: linear-gradient(180deg, #FFFAEB, #FFFFFF);
+}
+.podium-place.first .podium-score {
+    color: var(--gold-dark);
+}
+
+/* Segundo lugar - izquierda */
+.podium-place.second {
+    order: 1;
+}
+.podium-place.second .podium-medal {
+    background: linear-gradient(135deg, #E2E5EA, var(--silver), var(--silver-dark));
+}
+.podium-place.second .podium-base {
+    height: 90px;
+    background: linear-gradient(180deg, var(--silver), var(--silver-dark));
+}
+.podium-place.second .podium-card {
+    border-color: var(--silver);
+}
+
+/* Tercer lugar - derecha */
+.podium-place.third {
+    order: 3;
+}
+.podium-place.third .podium-medal {
+    background: linear-gradient(135deg, #E8B68C, var(--bronze), var(--bronze-dark));
+}
+.podium-place.third .podium-base {
+    height: 60px;
+    background: linear-gradient(180deg, var(--bronze), var(--bronze-dark));
+}
+.podium-place.third .podium-card {
+    border-color: var(--bronze);
+}
+
+/* Corona sobre el primer lugar */
+.podium-place.first .podium-card::before {
+    content: '\f521';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: -28px; left: 50%;
+    transform: translateX(-50%) rotate(-12deg);
+    font-size: 28px;
+    color: var(--gold);
+    text-shadow: 0 3px 8px rgba(253,185,19,0.5);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateX(-50%) rotate(-12deg) translateY(0); }
+    50% { transform: translateX(-50%) rotate(-12deg) translateY(-6px); }
+}
+
+/* Tabla del resto del ranking del segmento */
+.segment-rest-list {
+    margin-top: 18px;
+    border-top: 1px dashed var(--border-medium);
+    padding-top: 18px;
+}
+.segment-rest-list-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+}
+.rest-row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto auto;
+    gap: 14px;
+    align-items: center;
+    padding: 10px 14px;
+    background: #F8FAFC;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    transition: background 0.2s;
+}
+.rest-row:hover {
+    background: #F1F5F9;
+}
+.rest-position {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 16px;
+    color: var(--text-muted);
+    text-align: center;
+}
+.rest-name {
+    font-weight: 700; color: var(--text-heading); font-size: 14px;
+}
+.rest-name-sub {
+    font-size: 11px; color: var(--text-muted); font-weight: 600;
+}
+.rest-score {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 18px;
+    color: var(--epm-green-dark);
+}
+.rest-votes {
+    font-size: 11px; color: var(--text-muted);
+    background: #FFF;
+    border: 1px solid var(--border-medium);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.empty-segment {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: #F8FAFC;
+    border-radius: 12px;
+    border: 1px dashed var(--border-medium);
+}
+
+/* === TABLA DE REGISTROS === */
+.records-table-container {
+    background: #FFF;
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.records-table thead {
+    background: linear-gradient(135deg, var(--epm-green-dark), var(--epm-green));
+    color: #FFF;
+}
+.records-table thead th {
+    padding: 14px 12px;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.records-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.15s;
+}
+.records-table tbody tr:hover {
+    background: #F8FAFC;
+}
+.records-table tbody tr:last-child {
+    border-bottom: none;
+}
+.records-table tbody td {
+    padding: 14px 12px;
+    color: var(--text-main);
+    vertical-align: top;
+}
+.records-table .cell-date {
+    font-size: 11px; color: var(--text-muted); white-space: nowrap;
+}
+.records-table .cell-eval {
+    font-weight: 700; color: var(--text-heading);
+}
+.records-table .cell-cat-badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #FFF;
+    background: var(--epm-green);
+}
+.records-table .cell-cat-badge.publico {
+    background: var(--epm-blue);
+}
+.records-table .cell-empresa {
+    font-weight: 700; color: var(--text-heading);
+}
+.records-table .cell-empresa-sub {
+    font-size: 11px; color: var(--text-muted); font-weight: 600;
+}
+.records-table .cell-score {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--epm-green-dark);
+    text-align: center;
+}
+.records-table .cell-obs {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 12px;
+    max-width: 320px;
+    line-height: 1.4;
+}
+.records-table .cell-obs.empty {
+    color: #CBD5E1;
+    font-style: normal;
+}
+
+.score-pill {
+    display: inline-block;
+    background: #F0FDF4;
+    border: 1px solid var(--epm-green-light);
+    color: var(--epm-green-dark);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    min-width: 28px;
+    text-align: center;
+}
+
+.criteria-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    max-width: 280px;
+}
+.criteria-mini {
+    text-align: center;
+    padding: 4px 2px;
+    background: #F8FAFC;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+}
+.criteria-mini-label {
+    font-size: 8px;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+.criteria-mini-val {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--text-heading);
+}
+.criteria-mini.high .criteria-mini-val { color: var(--epm-green-dark); }
+.criteria-mini.mid .criteria-mini-val { color: #EAB308; }
+.criteria-mini.low .criteria-mini-val { color: #DC2626; }
+
+/* === COMENTARIOS === */
+.comments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 18px;
+}
+.comment-card {
+    background: #FFF;
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 4px solid var(--epm-green);
+    display: flex; flex-direction: column;
+}
+.comment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+.comment-card.publico {
+    border-left-color: var(--epm-blue);
+}
+.comment-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+.comment-eval-info {
+    flex: 1; min-width: 0;
+}
+.comment-eval-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 14px;
+    color: var(--text-heading);
+    margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+}
+.comment-eval-meta {
+    font-size: 11px; color: var(--text-muted); font-weight: 600;
+}
+.comment-score-big {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 24px;
+    color: var(--epm-green-dark);
+    background: #F0FDF4;
+    padding: 6px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--epm-green-light);
+}
+.comment-body {
+    color: var(--text-main);
+    font-size: 14px;
+    line-height: 1.6;
+    flex: 1;
+    position: relative;
+    padding-left: 22px;
+}
+.comment-body::before {
+    content: '"';
+    position: absolute;
+    left: 0; top: -10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--epm-green-light);
+    line-height: 1;
+}
+.comment-footer {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-light);
+    font-size: 11px; color: var(--text-muted);
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+/* === BOTONES === */
+.btn {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    letter-spacing: 0.3px;
+}
+.btn-primary {
+    background: var(--epm-green); color: #FFF;
+    box-shadow: 0 4px 14px rgba(0,168,89,0.25);
+}
+.btn-primary:hover {
+    background: var(--epm-green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,168,89,0.35);
+}
+.btn-secondary {
+    background: #FFF; color: var(--text-heading);
+    border: 1px solid var(--border-medium);
+}
+.btn-secondary:hover {
+    border-color: var(--epm-green);
+    color: var(--epm-green-dark);
+}
+
+.config-banner {
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    border: 1px solid #FCD34D;
+    border-left: 4px solid #F59E0B;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 25px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 14px;
+}
+.config-banner i {
+    color: #B45309; font-size: 22px;
+}
+.config-banner strong { color: #92400E; }
+
+.loading-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+.loading-state i {
+    font-size: 36px;
+    color: var(--epm-green);
+    animation: spin 1.2s linear infinite;
+    margin-bottom: 14px;
+}
+@keyframes spin {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+.empty-state i {
+    font-size: 48px;
+    color: var(--border-medium);
+    margin-bottom: 14px;
+}
+.empty-state-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 18px;
+    color: var(--text-heading);
+    margin-bottom: 6px;
+}
+
+.last-sync {
+    font-size: 12px; color: var(--text-muted);
+    font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+}
+.last-sync i { color: var(--epm-green); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 22px; border-radius: 18px; }
+    .title-section h1 { font-size: 24px; }
+    .podium-container {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+    .podium-place.first, .podium-place.second, .podium-place.third {
+        order: initial;
+    }
+    .podium-place.first .podium-base,
+    .podium-place.second .podium-base,
+    .podium-place.third .podium-base {
+        height: 14px;
+    }
+    .records-table {
+        font-size: 11px;
+    }
+    .records-table thead th,
+    .records-table tbody td {
+        padding: 8px 6px;
+    }
+    .criteria-mini-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="title-section">
+            <h1>Panel <span>Administrador</span></h1>
+            <div class="subtitle">
+                <span class="admin-badge">ADMIN</span>
+                Shark Tank Energía Grupo EPM
+            </div>
+        </div>
+        <div class="logo-epm-css"><span>Grupo</span> epm</div>
+    </div>
+
+    <!-- Banner si no hay URL configurada -->
+    <div id="configBanner" class="config-banner" style="display:none;">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <div>
+            <strong>URL del Google Sheets no configurada.</strong>
+            Edita la constante <code>GOOGLE_SHEETS_WEB_APP_URL</code> en el código del HTML para conectar este panel con tu hoja.
+        </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid" id="kpiGrid"></div>
+
+    <!-- TABS -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'podiums')">
+            <i class="fa-solid fa-trophy"></i> Podios por Segmento
+        </button>
+        <button class="tab-btn" onclick="switchTab(event, 'records')">
+            <i class="fa-solid fa-table-list"></i> Todos los Registros
+        </button>
+        <button class="tab-btn" onclick="switchTab(event, 'comments')">
+            <i class="fa-solid fa-comments"></i> Comentarios
+        </button>
+    </div>
+
+    <!-- Barra de acciones -->
+    <div class="filters-bar">
+        <button class="btn btn-primary" onclick="loadData()">
+            <i class="fa-solid fa-rotate"></i> Refrescar datos
+        </button>
+        <button class="btn btn-secondary" onclick="exportCSV()">
+            <i class="fa-solid fa-file-csv"></i> Exportar CSV
+        </button>
+        <div style="flex:1;"></div>
+        <div class="last-sync" id="lastSync">
+            <i class="fa-solid fa-clock"></i> <span>Sin sincronizar aún</span>
+        </div>
+    </div>
+
+    <!-- ============ TAB 1: PODIOS POR SEGMENTO ============ -->
+    <div id="podiums" class="view-section active">
+        <div id="podiumsContent">
+            <div class="loading-state">
+                <i class="fa-solid fa-spinner"></i>
+                <div>Cargando datos desde Google Sheets...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TAB 2: TODOS LOS REGISTROS ============ -->
+    <div id="records" class="view-section">
+        <div class="filters-bar">
+            <label><i class="fa-solid fa-filter"></i> Filtrar:</label>
+            <div class="filter-pills" id="filterSegmentRecords">
+                <button class="filter-pill active" data-segment="" onclick="filterRecords(this)">Todos los segmentos</button>
+                <button class="filter-pill" data-segment="Generación" onclick="filterRecords(this)">Generación</button>
+                <button class="filter-pill" data-segment="Transmisión" onclick="filterRecords(this)">Transmisión</button>
+                <button class="filter-pill" data-segment="Distribución" onclick="filterRecords(this)">Distribución</button>
+                <button class="filter-pill" data-segment="Comercialización" onclick="filterRecords(this)">Comercialización</button>
+            </div>
+            <input type="text" class="search-input" id="searchRecords" placeholder="Buscar por evaluador, empresa..." oninput="renderRecords()">
+        </div>
+        <div class="records-table-container">
+            <div id="recordsContent">
+                <div class="loading-state"><i class="fa-solid fa-spinner"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TAB 3: COMENTARIOS ============ -->
+    <div id="comments" class="view-section">
+        <div class="filters-bar">
+            <label><i class="fa-solid fa-filter"></i> Filtrar:</label>
+            <div class="filter-pills" id="filterCategoryComments">
+                <button class="filter-pill active" data-cat="" onclick="filterComments(this, 'cat')">Todas las categorías</button>
+                <button class="filter-pill" data-cat="SHARK" onclick="filterComments(this, 'cat')">
+                    <i class="fa-solid fa-crown"></i> SHARK
+                </button>
+                <button class="filter-pill" data-cat="Público" onclick="filterComments(this, 'cat')">
+                    <i class="fa-solid fa-users"></i> Público
+                </button>
+            </div>
+            <div class="filter-pills" id="filterSegmentComments">
+                <button class="filter-pill active" data-segment="" onclick="filterComments(this, 'seg')">Todos los segmentos</button>
+                <button class="filter-pill" data-segment="Generación" onclick="filterComments(this, 'seg')">Generación</button>
+                <button class="filter-pill" data-segment="Transmisión" onclick="filterComments(this, 'seg')">Transmisión</button>
+                <button class="filter-pill" data-segment="Distribución" onclick="filterComments(this, 'seg')">Distribución</button>
+                <button class="filter-pill" data-segment="Comercialización" onclick="filterComments(this, 'seg')">Comercialización</button>
+            </div>
+        </div>
+        <div id="commentsContent">
+            <div class="loading-state"><i class="fa-solid fa-spinner"></i></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURACIÓN: pega aquí la MISMA URL del Web App del Code.gs
+// (la que usaste en el HTML del evaluador)
+// ============================================================
+const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzTQsmdDhMmzwGfEo2mxqZVtg3ugH2dG6JZmQp1RdN5Fm_yY-c4rQOwWx-jTySdoIzV/exec"; // <-- PEGA AQUÍ TU URL
+
+// Pesos para el ranking ponderado (deben coincidir con el HTML del evaluador)
+const CATEGORY_WEIGHTS = {
+    "SHARK": 0.90,
+    "Público": 0.10
+};
+
+// Mismas etiquetas de empresas que usa el HTML del evaluador
+const companyDisplayLabels = {
+    "EPM_ENERGIA": "EPM Comercial Energía",
+    "EPM_CLIENTE": "EPM Comercial Cliente/Usuario"
+};
+
+function getDisplayName(emp) {
+    return companyDisplayLabels[emp] || emp;
+}
+
+function getLogoKey(emp) {
+    if (emp === "EPM_ENERGIA" || emp === "EPM_CLIENTE") return "epm";
+    return (emp || "").replace(/\s+/g, '').toLowerCase();
+}
+
+// Iconos por segmento
+const segmentIcons = {
+    "Generación": "fa-bolt",
+    "Transmisión": "fa-tower-broadcast",
+    "Distribución": "fa-network-wired",
+    "Comercialización": "fa-handshake"
+};
+
+const SEGMENTOS = ["Generación", "Transmisión", "Distribución", "Comercialización"];
+
+// Estado global
+let allRows = [];
+let currentRecordsFilter = "";
+let currentCommentCatFilter = "";
+let currentCommentSegFilter = "";
+
+// ============================================================
+// CARGA DE DATOS
+// ============================================================
+function loadData() {
+    if (!GOOGLE_SHEETS_WEB_APP_URL) {
+        document.getElementById('configBanner').style.display = 'flex';
+        document.getElementById('podiumsContent').innerHTML = emptyHTML(
+            'fa-link-slash', 'Configura la URL del Sheets', 'Pega la URL del Web App en la constante GOOGLE_SHEETS_WEB_APP_URL al inicio del script.'
+        );
+        document.getElementById('recordsContent').innerHTML = emptyHTML(
+            'fa-link-slash', 'Sin conexión', 'No hay datos para mostrar hasta que configures la URL.'
+        );
+        document.getElementById('commentsContent').innerHTML = emptyHTML(
+            'fa-link-slash', 'Sin conexión', 'No hay datos para mostrar hasta que configures la URL.'
+        );
+        renderKPIs();
+        return;
+    }
+
+    document.getElementById('podiumsContent').innerHTML = loadingHTML();
+    document.getElementById('recordsContent').innerHTML = loadingHTML();
+    document.getElementById('commentsContent').innerHTML = loadingHTML();
+
+    const url = GOOGLE_SHEETS_WEB_APP_URL + '?action=getAll&t=' + Date.now();
+    fetch(url, { method: 'GET' })
+        .then(r => r.json())
+        .then(data => {
+            allRows = Array.isArray(data) ? data : (data && Array.isArray(data.rows) ? data.rows : []);
+            // Normalizar campos
+            allRows = allRows.map(r => normalizeRow(r));
+            updateLastSync();
+            renderAll();
+        })
+        .catch(err => {
+            console.error('[Sheets] Error:', err);
+            const errHTML = emptyHTML(
+                'fa-circle-exclamation',
+                'Error al cargar',
+                'No se pudo conectar al Google Sheets. Verifica la URL, el despliegue y los permisos. Detalles en la consola del navegador.'
+            );
+            document.getElementById('podiumsContent').innerHTML = errHTML;
+            document.getElementById('recordsContent').innerHTML = errHTML;
+            document.getElementById('commentsContent').innerHTML = errHTML;
+        });
+}
+
+function normalizeRow(r) {
+    return {
+        fecha: r.fecha || r.Fecha || "",
+        evaluador: r.evaluador || r.Evaluador || "",
+        categoria: r.categoria || r["Categoría"] || r.Categoria || "",
+        segmento: r.segmento || r.Segmento || "",
+        empresa: r.empresa || r.Empresa || "",
+        empresa_codigo: r.empresa_codigo || r["Código Empresa"] || r.empresa || r.Empresa || "",
+        c1: numOrEmpty(r.c1 || r["1. Alineación Estratégica"]),
+        c2: numOrEmpty(r.c2 || r["2. Viabilidad Técnica"]),
+        c3: numOrEmpty(r.c3 || r["3. Viabilidad Financiera"]),
+        c4: numOrEmpty(r.c4 || r["4. Impacto Territorial"]),
+        c5: numOrEmpty(r.c5 || r["5. Métricas y Trazabilidad"]),
+        c6: numOrEmpty(r.c6 || r["6. Innovación"]),
+        c7: numOrEmpty(r.c7 || r["7. Encaje Político y Regulatorio"]),
+        c8: numOrEmpty(r.c8 || r["8. Calidad del Pitch"]),
+        promedio: parseFloat(r.promedio !== undefined ? r.promedio : r.Promedio) || 0,
+        observaciones: r.observaciones || r.Observaciones || ""
+    };
+}
+
+function numOrEmpty(v) {
+    if (v === undefined || v === null || v === "") return "";
+    const n = parseInt(v);
+    return isNaN(n) ? "" : n;
+}
+
+function loadingHTML() {
+    return `<div class="loading-state"><i class="fa-solid fa-spinner"></i><div>Cargando...</div></div>`;
+}
+
+function emptyHTML(icon, title, sub) {
+    return `<div class="empty-state">
+        <i class="fa-solid ${icon}"></i>
+        <div class="empty-state-title">${title}</div>
+        <div>${sub || ''}</div>
+    </div>`;
+}
+
+function updateLastSync() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+    document.querySelector('#lastSync span').textContent = `Última sincronización: ${hh}:${mm}:${ss}`;
+}
+
+function renderAll() {
+    renderKPIs();
+    renderPodiums();
+    renderRecords();
+    renderComments();
+}
+
+// ============================================================
+// KPIs
+// ============================================================
+function renderKPIs() {
+    const total = allRows.length;
+    const sharkCount = allRows.filter(r => r.categoria === 'SHARK').length;
+    const publicoCount = allRows.filter(r => r.categoria === 'Público').length;
+
+    const uniqueEvaluadores = new Set(allRows.map(r => r.evaluador.trim()).filter(Boolean)).size;
+    const uniqueProyectos = new Set(allRows.map(r => `${r.empresa_codigo}-${r.segmento}`).filter(k => k !== '-')).size;
+    const promedioGlobal = total > 0
+        ? (allRows.reduce((a, b) => a + (b.promedio || 0), 0) / total).toFixed(2)
+        : '—';
+    const comentariosCount = allRows.filter(r => r.observaciones && r.observaciones.trim()).length;
+
+    document.getElementById('kpiGrid').innerHTML = `
+        <div class="kpi-card">
+            <div class="kpi-label"><i class="fa-solid fa-check-double"></i> Calificaciones</div>
+            <div class="kpi-value">${total}</div>
+            <div class="kpi-sub">${sharkCount} SHARK · ${publicoCount} Público</div>
+        </div>
+        <div class="kpi-card blue">
+            <div class="kpi-label"><i class="fa-solid fa-user-tie"></i> Evaluadores</div>
+            <div class="kpi-value">${uniqueEvaluadores}</div>
+            <div class="kpi-sub">Personas únicas registradas</div>
+        </div>
+        <div class="kpi-card yellow">
+            <div class="kpi-label"><i class="fa-solid fa-building"></i> Proyectos evaluados</div>
+            <div class="kpi-value">${uniqueProyectos}</div>
+            <div class="kpi-sub">Combinaciones empresa+segmento</div>
+        </div>
+        <div class="kpi-card purple">
+            <div class="kpi-label"><i class="fa-solid fa-star"></i> Promedio global</div>
+            <div class="kpi-value">${promedioGlobal}</div>
+            <div class="kpi-sub">${comentariosCount} comentarios escritos</div>
+        </div>
+    `;
+}
+
+// ============================================================
+// PODIOS POR SEGMENTO
+// ============================================================
+function calculateProjectScore(rows) {
+    // rows = todas las filas de un mismo proyecto (empresa+segmento)
+    const sharks = rows.filter(r => r.categoria === 'SHARK').map(r => r.promedio);
+    const publicos = rows.filter(r => r.categoria === 'Público').map(r => r.promedio);
+
+    const sharkAvg = sharks.length ? sharks.reduce((a, b) => a + b, 0) / sharks.length : null;
+    const publicoAvg = publicos.length ? publicos.reduce((a, b) => a + b, 0) / publicos.length : null;
+
+    let weightedSum = 0;
+    let totalWeight = 0;
+    if (sharkAvg !== null) {
+        weightedSum += sharkAvg * CATEGORY_WEIGHTS["SHARK"];
+        totalWeight += CATEGORY_WEIGHTS["SHARK"];
+    }
+    if (publicoAvg !== null) {
+        weightedSum += publicoAvg * CATEGORY_WEIGHTS["Público"];
+        totalWeight += CATEGORY_WEIGHTS["Público"];
+    }
+    const weighted = totalWeight > 0
+        ? weightedSum / totalWeight
+        : rows.reduce((a, b) => a + b.promedio, 0) / rows.length;
+
+    return {
+        weighted: weighted,
+        sharkAvg: sharkAvg,
+        publicoAvg: publicoAvg,
+        sharkCount: sharks.length,
+        publicoCount: publicos.length,
+        total: rows.length
+    };
+}
+
+function getProjectsBySegment(segment) {
+    // Agrupa filas por empresa dentro de un segmento
+    const grouped = {};
+    allRows.filter(r => r.segmento === segment).forEach(r => {
+        const key = r.empresa_codigo;
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(r);
+    });
+
+    const projects = Object.keys(grouped).map(empCode => {
+        const rows = grouped[empCode];
+        const score = calculateProjectScore(rows);
+        return {
+            empresa_codigo: empCode,
+            empresa: getDisplayName(empCode),
+            ...score
+        };
+    });
+
+    projects.sort((a, b) => b.weighted - a.weighted);
+    return projects;
+}
+
+function renderPodiums() {
+    if (allRows.length === 0) {
+        document.getElementById('podiumsContent').innerHTML = emptyHTML(
+            'fa-trophy', 'Sin datos todavía',
+            'Aún no hay calificaciones registradas. En cuanto un evaluador envíe la primera, aparecerá aquí.'
+        );
+        return;
+    }
+
+    let html = '<div class="segment-podiums">';
+    SEGMENTOS.forEach(seg => {
+        const projects = getProjectsBySegment(seg);
+        const icon = segmentIcons[seg] || 'fa-circle';
+
+        html += `<div class="podium-section">
+            <div class="podium-section-header">
+                <div class="podium-section-title">
+                    <div class="segment-icon"><i class="fa-solid ${icon}"></i></div>
+                    ${seg}
+                </div>
+                <div class="podium-section-meta">
+                    <span><i class="fa-solid fa-building"></i> ${projects.length} proyecto${projects.length === 1 ? '' : 's'}</span>
+                    <span><i class="fa-solid fa-check"></i> ${projects.reduce((a, p) => a + p.total, 0)} votos</span>
+                </div>
+            </div>`;
+
+        if (projects.length === 0) {
+            html += `<div class="empty-segment">
+                <i class="fa-solid fa-inbox" style="font-size:32px; margin-bottom:8px; display:block; color:var(--border-medium);"></i>
+                Sin calificaciones en este segmento todavía.
+            </div>`;
+        } else {
+            html += renderPodiumStructure(projects);
+            // Resto del ranking (4° en adelante)
+            if (projects.length > 3) {
+                html += `<div class="segment-rest-list">
+                    <div class="segment-rest-list-title">
+                        <i class="fa-solid fa-list-ol"></i> Resto del ranking
+                    </div>`;
+                projects.slice(3).forEach((p, i) => {
+                    html += `<div class="rest-row">
+                        <div class="rest-position">${i + 4}°</div>
+                        <div>
+                            <div class="rest-name">${escapeHtml(p.empresa)}</div>
+                            <div class="rest-name-sub">${formatCategoryChips(p)}</div>
+                        </div>
+                        <div class="rest-score">${p.weighted.toFixed(2)}</div>
+                        <div class="rest-votes">${p.total} voto${p.total === 1 ? '' : 's'}</div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+        }
+        html += `</div>`;
+    });
+    html += '</div>';
+
+    document.getElementById('podiumsContent').innerHTML = html;
+}
+
+function renderPodiumStructure(projects) {
+    const places = [
+        { idx: 1, cls: 'second', label: '2' }, // izquierda
+        { idx: 0, cls: 'first',  label: '1' }, // centro alto
+        { idx: 2, cls: 'third',  label: '3' }  // derecha
+    ];
+
+    let html = '<div class="podium-container">';
+    places.forEach(place => {
+        const p = projects[place.idx];
+        if (!p) {
+            html += `<div class="podium-place ${place.cls}"></div>`;
+            return;
+        }
+        const initials = (p.empresa || '??').substring(0, 2).toUpperCase();
+        html += `<div class="podium-place ${place.cls}">
+            <div class="podium-card">
+                <div class="podium-medal">${place.label}</div>
+                <div class="podium-logo-fallback">${initials}</div>
+                <div class="podium-name">${escapeHtml(p.empresa)}</div>
+                <div class="podium-score">${p.weighted.toFixed(2)}</div>
+                <div class="podium-score-sub">${p.total} voto${p.total === 1 ? '' : 's'}</div>
+                <div class="podium-chips">${formatCategoryChips(p)}</div>
+            </div>
+            <div class="podium-base">${place.label}°</div>
+        </div>`;
+    });
+    html += '</div>';
+    return html;
+}
+
+function formatCategoryChips(p) {
+    let html = '';
+    if (p.sharkAvg !== null) {
+        html += `<span class="podium-chip shark"><i class="fa-solid fa-crown"></i> SHARK ${p.sharkAvg.toFixed(1)} (${p.sharkCount})</span>`;
+    }
+    if (p.publicoAvg !== null) {
+        html += `<span class="podium-chip publico"><i class="fa-solid fa-users"></i> Público ${p.publicoAvg.toFixed(1)} (${p.publicoCount})</span>`;
+    }
+    return html;
+}
+
+// ============================================================
+// TABLA DE REGISTROS
+// ============================================================
+function filterRecords(btn) {
+    document.querySelectorAll('#filterSegmentRecords .filter-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentRecordsFilter = btn.dataset.segment;
+    renderRecords();
+}
+
+function renderRecords() {
+    const search = (document.getElementById('searchRecords').value || '').toLowerCase().trim();
+    let filtered = allRows.slice();
+    if (currentRecordsFilter) {
+        filtered = filtered.filter(r => r.segmento === currentRecordsFilter);
+    }
+    if (search) {
+        filtered = filtered.filter(r =>
+            (r.evaluador || '').toLowerCase().includes(search) ||
+            (r.empresa || '').toLowerCase().includes(search) ||
+            (r.observaciones || '').toLowerCase().includes(search)
+        );
+    }
+
+    // Más recientes primero
+    filtered.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+    if (filtered.length === 0) {
+        document.getElementById('recordsContent').innerHTML = emptyHTML(
+            'fa-inbox', 'Sin registros', 'No hay calificaciones que coincidan con los filtros aplicados.'
+        );
+        return;
+    }
+
+    let html = `<table class="records-table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Evaluador</th>
+                <th>Cat.</th>
+                <th>Segmento</th>
+                <th>Empresa</th>
+                <th>Criterios (1–8)</th>
+                <th style="text-align:center;">Prom.</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    filtered.forEach(r => {
+        const fecha = formatDate(r.fecha);
+        const catClass = r.categoria === 'Público' ? 'publico' : '';
+        const obs = (r.observaciones && r.observaciones.trim())
+            ? `<div class="cell-obs">${escapeHtml(r.observaciones)}</div>`
+            : `<div class="cell-obs empty">—</div>`;
+
+        html += `<tr>
+            <td><div class="cell-date">${fecha}</div></td>
+            <td><div class="cell-eval">${escapeHtml(r.evaluador || '')}</div></td>
+            <td><span class="cell-cat-badge ${catClass}">${escapeHtml(r.categoria || '')}</span></td>
+            <td>${escapeHtml(r.segmento || '')}</td>
+            <td>
+                <div class="cell-empresa">${escapeHtml(r.empresa || '')}</div>
+            </td>
+            <td>${renderCriteriaMini(r)}</td>
+            <td><div class="cell-score">${parseFloat(r.promedio).toFixed(2)}</div></td>
+            <td>${obs}</td>
+        </tr>`;
+    });
+
+    html += `</tbody></table>`;
+    document.getElementById('recordsContent').innerHTML = html;
+}
+
+function renderCriteriaMini(r) {
+    const labels = ['C1','C2','C3','C4','C5','C6','C7','C8'];
+    const values = [r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.c8];
+    let html = '<div class="criteria-mini-grid">';
+    values.forEach((v, i) => {
+        const cls = v === '' ? '' : (v >= 4 ? 'high' : v >= 3 ? 'mid' : 'low');
+        html += `<div class="criteria-mini ${cls}">
+            <div class="criteria-mini-label">${labels[i]}</div>
+            <div class="criteria-mini-val">${v === '' ? '—' : v}</div>
+        </div>`;
+    });
+    html += '</div>';
+    return html;
+}
+
+function formatDate(d) {
+    if (!d) return '—';
+    const date = new Date(d);
+    if (isNaN(date.getTime())) return String(d);
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yy = date.getFullYear();
+    const hh = String(date.getHours()).padStart(2, '0');
+    const mi = String(date.getMinutes()).padStart(2, '0');
+    return `${dd}/${mm}/${yy}<br><span style="opacity:0.7;">${hh}:${mi}</span>`;
+}
+
+// ============================================================
+// COMENTARIOS
+// ============================================================
+function filterComments(btn, type) {
+    if (type === 'cat') {
+        document.querySelectorAll('#filterCategoryComments .filter-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCommentCatFilter = btn.dataset.cat;
+    } else {
+        document.querySelectorAll('#filterSegmentComments .filter-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCommentSegFilter = btn.dataset.segment;
+    }
+    renderComments();
+}
+
+function renderComments() {
+    let filtered = allRows.filter(r => r.observaciones && r.observaciones.trim());
+    if (currentCommentCatFilter) {
+        filtered = filtered.filter(r => r.categoria === currentCommentCatFilter);
+    }
+    if (currentCommentSegFilter) {
+        filtered = filtered.filter(r => r.segmento === currentCommentSegFilter);
+    }
+    filtered.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+    if (filtered.length === 0) {
+        document.getElementById('commentsContent').innerHTML = emptyHTML(
+            'fa-comment-slash', 'Sin comentarios',
+            'No hay observaciones que coincidan con los filtros aplicados.'
+        );
+        return;
+    }
+
+    let html = '<div class="comments-grid">';
+    filtered.forEach(r => {
+        const catClass = r.categoria === 'Público' ? 'publico' : '';
+        const catBadge = r.categoria === 'Público'
+            ? '<span class="cell-cat-badge publico">PÚBLICO</span>'
+            : '<span class="cell-cat-badge">SHARK</span>';
+
+        html += `<div class="comment-card ${catClass}">
+            <div class="comment-header">
+                <div class="comment-eval-info">
+                    <div class="comment-eval-name">
+                        ${escapeHtml(r.evaluador || '—')}
+                        ${catBadge}
+                    </div>
+                    <div class="comment-eval-meta">
+                        <i class="fa-solid fa-building"></i> ${escapeHtml(r.empresa || '')} ·
+                        <i class="fa-solid fa-layer-group"></i> ${escapeHtml(r.segmento || '')}
+                    </div>
+                </div>
+                <div class="comment-score-big">${parseFloat(r.promedio).toFixed(1)}</div>
+            </div>
+            <div class="comment-body">${escapeHtml(r.observaciones)}</div>
+            <div class="comment-footer">
+                <span><i class="fa-regular fa-clock"></i> ${formatDateShort(r.fecha)}</span>
+            </div>
+        </div>`;
+    });
+    html += '</div>';
+    document.getElementById('commentsContent').innerHTML = html;
+}
+
+function formatDateShort(d) {
+    if (!d) return '—';
+    const date = new Date(d);
+    if (isNaN(date.getTime())) return String(d);
+    return date.toLocaleString('es-CO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+// ============================================================
+// EXPORTAR CSV
+// ============================================================
+function exportCSV() {
+    if (allRows.length === 0) {
+        alert('No hay datos para exportar.');
+        return;
+    }
+    const headers = ['Fecha','Evaluador','Categoría','Segmento','Empresa','Código Empresa','C1','C2','C3','C4','C5','C6','C7','C8','Promedio','Observaciones'];
+    const csvRows = [headers.join(',')];
+    allRows.forEach(r => {
+        const row = [
+            r.fecha, r.evaluador, r.categoria, r.segmento, r.empresa, r.empresa_codigo,
+            r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.c8, r.promedio, r.observaciones
+        ].map(v => csvEscape(v));
+        csvRows.push(row.join(','));
+    });
+    const csv = '\uFEFF' + csvRows.join('\n'); // BOM para Excel
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const today = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `shark_tank_epm_${today}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function csvEscape(v) {
+    if (v === null || v === undefined) return '';
+    const s = String(v);
+    if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+        return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function escapeHtml(s) {
+    if (s === null || s === undefined) return '';
+    return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function switchTab(event, id) {
+    document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+
+// Auto-refresh cada 30 segundos
+let autoRefreshInterval = setInterval(() => {
+    if (GOOGLE_SHEETS_WEB_APP_URL) loadData();
+}, 30000);
+
+// Inicializar
+loadData();
+</script>
+</body>
+</html>
