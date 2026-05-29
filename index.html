@@ -869,6 +869,353 @@ h1, h2, h3, .brand-font { font-family: 'Montserrat', sans-serif; }
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
+
+/* =====================================================
+   EPM PREMIUM ADMIN REFINEMENT - capa visual final
+   Mantiene intacta la funcionalidad del panel.
+===================================================== */
+:root {
+    --epm-ink: #082032;
+    --epm-surface: rgba(255,255,255,0.92);
+    --epm-glass: rgba(255,255,255,0.76);
+    --epm-line: rgba(226,232,240,0.82);
+    --premium-shadow: 0 22px 70px rgba(15,23,42,0.10);
+    --premium-shadow-soft: 0 10px 30px rgba(15,23,42,0.07);
+    --premium-green-glow: 0 16px 36px rgba(0,168,89,0.18);
+}
+
+body {
+    background:
+        radial-gradient(circle at 8% 6%, rgba(0,168,89,0.16), transparent 28%),
+        radial-gradient(circle at 92% 0%, rgba(0,51,160,0.13), transparent 30%),
+        radial-gradient(circle at 86% 88%, rgba(253,185,19,0.14), transparent 30%),
+        linear-gradient(180deg, #F8FBFD 0%, #EDF3F7 100%) !important;
+    background-attachment: fixed !important;
+}
+
+.container {
+    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.88)) !important;
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    box-shadow: var(--premium-shadow) !important;
+    backdrop-filter: blur(16px);
+}
+
+.container::before {
+    height: 8px !important;
+    background: linear-gradient(90deg, var(--epm-green) 0%, var(--epm-green-light) 30%, var(--epm-blue) 72%, var(--epm-yellow) 100%) !important;
+}
+
+.header {
+    padding: 4px 4px 28px !important;
+    border-bottom: 1px solid rgba(226,232,240,0.78) !important;
+}
+
+.title-section h1 {
+    font-size: clamp(28px, 3vw, 42px) !important;
+    letter-spacing: -1.3px !important;
+    color: var(--epm-ink) !important;
+}
+
+.title-section h1 span {
+    background: linear-gradient(135deg, var(--epm-green-dark), var(--epm-green-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+}
+
+.title-section .subtitle {
+    margin-top: 12px !important;
+    gap: 10px !important;
+    color: #516074 !important;
+}
+
+.title-section .subtitle::after {
+    content: 'Centro de control en tiempo real';
+    color: var(--epm-green-dark);
+    background: rgba(0,168,89,0.08);
+    border: 1px solid rgba(0,168,89,0.16);
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .7px;
+}
+
+.title-section .subtitle .admin-badge {
+    background: linear-gradient(135deg, var(--epm-blue), #061B58) !important;
+    border-radius: 999px !important;
+    padding: 5px 12px !important;
+    box-shadow: 0 8px 18px rgba(0,51,160,0.18);
+}
+
+.logo-epm-css {
+    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
+    border-radius: 18px 18px 18px 6px !important;
+    padding: 12px 26px !important;
+    box-shadow: var(--premium-green-glow) !important;
+    position: relative;
+    overflow: hidden;
+}
+.logo-epm-css::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 15%, rgba(255,255,255,0.22), transparent 52%);
+    transform: translateX(-100%);
+    animation: epmShine 5s ease-in-out infinite;
+}
+@keyframes epmShine { 0%, 55% { transform: translateX(-120%); } 75%, 100% { transform: translateX(120%); } }
+
+.kpi-grid {
+    gap: 20px !important;
+}
+.kpi-card {
+    border: 1px solid rgba(226,232,240,0.86) !important;
+    border-radius: 22px !important;
+    padding: 24px 24px 22px !important;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.94)) !important;
+    box-shadow: var(--premium-shadow-soft) !important;
+}
+.kpi-card::before {
+    width: 100% !important;
+    height: 5px !important;
+    background: linear-gradient(90deg, var(--epm-green), var(--epm-green-light)) !important;
+}
+.kpi-card.blue::before { background: linear-gradient(90deg, var(--epm-blue), #3B82F6) !important; }
+.kpi-card.yellow::before { background: linear-gradient(90deg, var(--epm-yellow), #FACC15) !important; }
+.kpi-card.purple::before { background: linear-gradient(90deg, #7C3AED, #A78BFA) !important; }
+.kpi-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 22px 44px rgba(15,23,42,0.12) !important;
+}
+.kpi-value {
+    font-size: clamp(32px, 4vw, 44px) !important;
+    letter-spacing: -1.2px;
+}
+.kpi-label {
+    color: #546277 !important;
+}
+
+.nav-tabs {
+    background: rgba(241,245,249,0.72) !important;
+    border: 1px solid rgba(226,232,240,0.86) !important;
+    border-radius: 22px !important;
+    padding: 10px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+.tab-btn {
+    border-radius: 16px !important;
+    background: transparent !important;
+    min-height: 54px;
+}
+.tab-btn:hover {
+    background: rgba(255,255,255,0.9) !important;
+    color: var(--epm-green-dark) !important;
+    transform: translateY(-1px);
+}
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--epm-ink), #111827) !important;
+    color: #FFF !important;
+    box-shadow: 0 14px 30px rgba(15,23,42,0.22) !important;
+}
+.tab-btn.active i { color: var(--epm-yellow); }
+
+.filters-bar, .podium-section, .records-table-container, .comment-card, .config-banner {
+    border-radius: 22px !important;
+    border: 1px solid rgba(226,232,240,0.88) !important;
+    background: var(--epm-surface) !important;
+    box-shadow: var(--premium-shadow-soft) !important;
+}
+.filters-bar {
+    padding: 18px !important;
+    gap: 12px !important;
+}
+.btn {
+    border-radius: 14px !important;
+    min-height: 44px;
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
+    box-shadow: var(--premium-green-glow) !important;
+}
+.btn-secondary {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(203,213,225,0.9) !important;
+}
+.filter-pill {
+    border-radius: 999px !important;
+    padding: 9px 15px !important;
+    background: #FFFFFF !important;
+}
+.filter-pill.active {
+    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
+}
+.search-input {
+    border-radius: 999px !important;
+    min-height: 44px;
+    background: #FFFFFF !important;
+}
+
+.podium-section {
+    padding: clamp(22px, 3vw, 34px) !important;
+    position: relative;
+    overflow: hidden;
+}
+.podium-section::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 110px;
+    background: linear-gradient(90deg, rgba(0,168,89,0.06), rgba(0,51,160,0.04), rgba(253,185,19,0.05));
+    pointer-events: none;
+}
+.podium-section-header, .podium-container, .segment-rest-list { position: relative; z-index: 1; }
+.podium-section-title {
+    color: var(--epm-ink) !important;
+}
+.podium-section-title .segment-icon {
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
+    box-shadow: var(--premium-green-glow) !important;
+}
+.podium-card {
+    border-radius: 22px !important;
+    background: linear-gradient(180deg, #FFFFFF, #F8FAFC) !important;
+    box-shadow: 0 18px 38px rgba(15,23,42,0.12) !important;
+}
+.podium-logo-fallback {
+    background: linear-gradient(135deg, var(--epm-green), var(--epm-blue)) !important;
+    border-radius: 20px !important;
+}
+.podium-name { font-size: 15px !important; }
+.podium-score { font-size: 36px !important; }
+.podium-base { border-radius: 18px 18px 4px 4px !important; }
+.podium-chip, .cell-cat-badge, .rest-votes {
+    border-radius: 999px !important;
+}
+.rest-row {
+    background: rgba(248,250,252,0.92) !important;
+    border: 1px solid rgba(226,232,240,0.75);
+    border-radius: 16px !important;
+    padding: 13px 16px !important;
+}
+.rest-row:hover {
+    background: #FFFFFF !important;
+    transform: translateX(2px);
+}
+
+.records-table-container {
+    overflow-x: auto !important;
+}
+.records-table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    min-width: 1050px;
+}
+.records-table thead {
+    background: linear-gradient(135deg, var(--epm-ink), #102A43) !important;
+}
+.records-table thead th {
+    padding: 16px 14px !important;
+}
+.records-table tbody tr {
+    transition: all .18s ease;
+}
+.records-table tbody tr:hover {
+    background: #F8FCFA !important;
+}
+.records-table tbody td {
+    padding: 15px 14px !important;
+}
+.criteria-mini-grid {
+    grid-template-columns: repeat(7, minmax(34px, 1fr)) !important;
+    gap: 6px !important;
+    max-width: 320px !important;
+}
+.criteria-mini {
+    border-radius: 10px !important;
+    background: #FFFFFF !important;
+    min-width: 34px;
+}
+.criteria-mini-label {
+    font-size: 8px !important;
+    letter-spacing: .3px;
+}
+.criteria-mini-val {
+    font-size: 14px !important;
+}
+.cell-score, .comment-score-big, .rest-score {
+    color: var(--epm-green-dark) !important;
+}
+
+.comments-grid {
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)) !important;
+}
+.comment-card {
+    border-left: 0 !important;
+    position: relative;
+    overflow: hidden;
+}
+.comment-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--epm-green), var(--epm-green-light));
+}
+.comment-card.publico::before {
+    background: linear-gradient(90deg, var(--epm-blue), #60A5FA);
+}
+.comment-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 20px 45px rgba(15,23,42,0.12) !important;
+}
+.comment-score-big {
+    border-radius: 16px !important;
+    background: rgba(0,168,89,0.08) !important;
+}
+
+.loading-state, .empty-state, .empty-segment {
+    border-radius: 22px !important;
+    background: rgba(255,255,255,0.72) !important;
+    border: 1px dashed rgba(203,213,225,0.9);
+}
+
+@media (max-width: 768px) {
+    body { padding: 12px !important; }
+    .container { padding: 22px 16px !important; border-radius: 24px !important; }
+    .header { align-items: flex-start !important; }
+    .title-section .subtitle { align-items: flex-start !important; flex-wrap: wrap; }
+    .title-section .subtitle::after { width: fit-content; }
+    .logo-epm-css { width: 100%; max-width: 230px; }
+    .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; }
+    .kpi-card { padding: 18px 16px !important; border-radius: 18px !important; }
+    .kpi-value { font-size: 30px !important; }
+    .kpi-label { font-size: 9px !important; }
+    .nav-tabs { display: grid !important; grid-template-columns: 1fr !important; }
+    .tab-btn { min-width: 0 !important; width: 100%; justify-content: flex-start !important; padding-left: 18px !important; }
+    .filters-bar { flex-direction: column !important; align-items: stretch !important; }
+    .filters-bar > div[style*="flex:1"] { display: none; }
+    .filter-pills { width: 100%; }
+    .filter-pill { flex: 1 1 auto; justify-content: center; }
+    .podium-section { padding: 20px 14px !important; }
+    .podium-section-header { align-items: flex-start !important; }
+    .podium-section-meta { flex-direction: column; gap: 6px !important; }
+    .podium-card { padding: 18px 12px !important; }
+    .rest-row { grid-template-columns: 34px 1fr auto !important; }
+    .rest-votes { display: none; }
+    .comments-grid { grid-template-columns: 1fr !important; }
+    .criteria-mini-grid { grid-template-columns: repeat(7, 34px) !important; max-width: none !important; }
+}
+
+@media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr !important; }
+    .podium-score { font-size: 30px !important; }
+    .records-table { min-width: 950px; }
+}
+
 </style>
 </head>
 <body>
@@ -1072,6 +1419,10 @@ function loadData() {
 }
 
 function normalizeRow(r) {
+    // Criterios actualizados según la Guía del Evaluador:
+    // C1 Viabilidad técnica (20), C2 Viabilidad financiera (20), C3 Impacto territorial (15),
+    // C4 Innovación (15), C5 Marco regulatorio (15), C6 Alineación estratégica (10), C7 Calidad del pitch (5).
+    // Se dejan equivalencias con nombres antiguos para no perder lectura de registros históricos.
     return {
         fecha: r.fecha || r.Fecha || "",
         evaluador: r.evaluador || r.Evaluador || "",
@@ -1079,14 +1430,13 @@ function normalizeRow(r) {
         segmento: r.segmento || r.Segmento || "",
         empresa: r.empresa || r.Empresa || "",
         empresa_codigo: r.empresa_codigo || r["Código Empresa"] || r.empresa || r.Empresa || "",
-        c1: numOrEmpty(r.c1 || r["1. Alineación Estratégica"]),
-        c2: numOrEmpty(r.c2 || r["2. Viabilidad Técnica"]),
-        c3: numOrEmpty(r.c3 || r["3. Viabilidad Financiera"]),
-        c4: numOrEmpty(r.c4 || r["4. Impacto Territorial"]),
-        c5: numOrEmpty(r.c5 || r["5. Métricas y Trazabilidad"]),
-        c6: numOrEmpty(r.c6 || r["6. Innovación"]),
-        c7: numOrEmpty(r.c7 || r["7. Encaje Político y Regulatorio"]),
-        c8: numOrEmpty(r.c8 || r["8. Calidad del Pitch"]),
+        c1: numOrEmpty(r.c1 || r["1. Viabilidad técnica"] || r["1. Viabilidad Técnica"] || r["2. Viabilidad Técnica"]),
+        c2: numOrEmpty(r.c2 || r["2. Viabilidad financiera"] || r["2. Viabilidad Financiera"] || r["3. Viabilidad Financiera"]),
+        c3: numOrEmpty(r.c3 || r["3. Impacto territorial"] || r["3. Impacto Territorial"] || r["4. Impacto Territorial"]),
+        c4: numOrEmpty(r.c4 || r["4. Innovación"] || r["6. Innovación"]),
+        c5: numOrEmpty(r.c5 || r["5. Posibilidad de ajuste de la idea al marco regulatorio actual o factibilidad con ajustes regulatorios"] || r["5. Marco regulatorio"] || r["7. Encaje Político y Regulatorio"]),
+        c6: numOrEmpty(r.c6 || r["6. Alineación estratégica"] || r["6. Alineación Estratégica"] || r["1. Alineación Estratégica"]),
+        c7: numOrEmpty(r.c7 || r["7. Calidad del pitch"] || r["7. Calidad del Pitch"] || r["8. Calidad del Pitch"]),
         promedio: parseFloat(r.promedio !== undefined ? r.promedio : r.Promedio) || 0,
         observaciones: r.observaciones || r.Observaciones || ""
     };
@@ -1366,7 +1716,7 @@ function renderRecords() {
                 <th>Cat.</th>
                 <th>Segmento</th>
                 <th>Empresa</th>
-                <th>Criterios (1–8)</th>
+                <th>Criterios ponderados (1–7)</th>
                 <th style="text-align:center;">Prom.</th>
                 <th>Observaciones</th>
             </tr>
@@ -1399,12 +1749,21 @@ function renderRecords() {
 }
 
 function renderCriteriaMini(r) {
-    const labels = ['C1','C2','C3','C4','C5','C6','C7','C8'];
-    const values = [r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.c8];
+    const labels = ['VT','VF','IT','IN','MR','AE','CP'];
+    const titles = [
+        'Viabilidad técnica · 20 pts',
+        'Viabilidad financiera · 20 pts',
+        'Impacto territorial · 15 pts',
+        'Innovación · 15 pts',
+        'Marco regulatorio · 15 pts',
+        'Alineación estratégica · 10 pts',
+        'Calidad del pitch · 5 pts'
+    ];
+    const values = [r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7];
     let html = '<div class="criteria-mini-grid">';
     values.forEach((v, i) => {
         const cls = v === '' ? '' : (v >= 4 ? 'high' : v >= 3 ? 'mid' : 'low');
-        html += `<div class="criteria-mini ${cls}">
+        html += `<div class="criteria-mini ${cls}" title="${titles[i]}">
             <div class="criteria-mini-label">${labels[i]}</div>
             <div class="criteria-mini-val">${v === '' ? '—' : v}</div>
         </div>`;
@@ -1505,12 +1864,12 @@ function exportCSV() {
         alert('No hay datos para exportar.');
         return;
     }
-    const headers = ['Fecha','Evaluador','Categoría','Segmento','Empresa','Código Empresa','C1','C2','C3','C4','C5','C6','C7','C8','Promedio','Observaciones'];
+    const headers = ['Fecha','Evaluador','Categoría','Segmento','Empresa','Código Empresa','Viabilidad técnica','Viabilidad financiera','Impacto territorial','Innovación','Marco regulatorio','Alineación estratégica','Calidad del pitch','Promedio ponderado','Observaciones'];
     const csvRows = [headers.join(',')];
     allRows.forEach(r => {
         const row = [
             r.fecha, r.evaluador, r.categoria, r.segmento, r.empresa, r.empresa_codigo,
-            r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.c8, r.promedio, r.observaciones
+            r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.promedio, r.observaciones
         ].map(v => csvEscape(v));
         csvRows.push(row.join(','));
     });
