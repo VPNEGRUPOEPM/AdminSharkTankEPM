@@ -756,6 +756,476 @@ h1, h2, h3, .brand-font { font-family: 'Montserrat', sans-serif; }
     display: flex; justify-content: space-between; align-items: center;
 }
 
+
+/* === MAPA DINÁMICO DE INICIATIVAS === */
+.strategy-map-layout {
+    display: grid;
+    grid-template-columns: 255px minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+.strategy-chart-card,
+.strategy-side-card,
+.strategy-kpi-panel,
+.strategy-comments-panel {
+    background: #FFF;
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+}
+.strategy-chart-card {
+    padding: 22px;
+    min-height: 620px;
+    min-width: 0;
+}
+.strategy-kpi-panel {
+    padding: 18px;
+    position: sticky;
+    top: 18px;
+}
+.strategy-side-card {
+    padding: 22px;
+}
+.strategy-chart-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-light);
+}
+.strategy-chart-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: var(--text-heading);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.strategy-chart-title i { color: var(--epm-green); }
+.strategy-chart-subtitle {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 5px;
+    line-height: 1.45;
+}
+.strategy-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+}
+.legend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border-light);
+    background: #F8FAFC;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+}
+.legend-symbol {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background: var(--epm-green);
+}
+.legend-symbol.circle { border-radius: 50%; }
+.legend-symbol.square { border-radius: 3px; }
+.legend-symbol.diamond { transform: rotate(45deg); border-radius: 2px; }
+.legend-symbol.triangle {
+    width: 0; height: 0; background: transparent;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 13px solid var(--epm-green);
+}
+.strategy-segment-descriptions {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    background: linear-gradient(135deg, #F8FAFC, #FFFFFF);
+}
+.strategy-segment-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--text-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.strategy-segment-title i { color: var(--epm-green); }
+.strategy-segment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+.strategy-segment-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    background: #FFFFFF;
+}
+.strategy-segment-item-text strong {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-heading);
+    font-size: 11px;
+    font-weight: 900;
+}
+.strategy-segment-item-text span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+.strategy-svg-wrap {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+.strategy-svg-wrap.panning { cursor: grabbing; }
+.strategy-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.strategy-chart-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+.strategy-mini-kpis {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+.strategy-mini-kpi {
+    min-width: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #F8FAFC, #FFFFFF);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 10px 12px;
+    box-shadow: var(--shadow-soft);
+}
+.strategy-mini-kpi-label {
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.strategy-mini-kpi-label i { color: var(--epm-green); }
+.strategy-mini-kpi-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--text-heading);
+    line-height: 1;
+    margin-top: 5px;
+}
+.strategy-mini-kpi-sub {
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 3px;
+}
+.zoom-controls {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.zoom-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--border-medium);
+    background: #FFFFFF;
+    color: var(--text-heading);
+    cursor: pointer;
+    font-weight: 900;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.2s ease;
+}
+.zoom-btn:hover {
+    border-color: var(--epm-green);
+    color: var(--epm-green-dark);
+    transform: translateY(-1px);
+}
+.zoom-reset {
+    width: auto;
+    padding: 0 11px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+}
+.size-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 800;
+    justify-content: flex-end;
+}
+.size-dot {
+    display: inline-block;
+    border-radius: 50%;
+    background: rgba(0,168,89,0.55);
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.22);
+}
+.size-dot.small { width: 11px; height: 11px; }
+.size-dot.medium { width: 20px; height: 20px; }
+.size-dot.large { width: 31px; height: 31px; }
+.axis-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    fill: var(--text-heading);
+}
+.axis-tick, .grid-line-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    fill: var(--text-muted);
+}
+.grid-line { stroke: #E2E8F0; stroke-width: 1; }
+.axis-line { stroke: #94A3B8; stroke-width: 1.4; }
+.quadrant-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    fill: #94A3B8;
+    opacity: 0.75;
+}
+.marker-shape {
+    cursor: pointer;
+    fill: rgba(0,168,89,0.72);
+    stroke: #FFFFFF;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 5px 10px rgba(15, 23, 42, 0.22));
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.marker-hit-area { cursor: pointer; fill: rgba(255,255,255,0.001); pointer-events: all; }
+.marker-label {
+    pointer-events: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    fill: var(--text-heading);
+    paint-order: stroke;
+    stroke: #FFFFFF;
+    stroke-width: 4px;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+.marker-group:hover .marker-shape { opacity: 0.95; }
+.marker-group.selected .marker-shape {
+    stroke: var(--epm-yellow);
+    stroke-width: 4;
+    fill: rgba(0,51,160,0.78);
+}
+.strategy-axis-window {
+    margin: -8px 0 12px;
+    padding: 8px 12px;
+    border: 1px dashed var(--border-medium);
+    border-radius: 12px;
+    background: #F8FAFC;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.strategy-axis-window::before {
+    content: '\f05a';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--epm-green);
+}
+.strategy-svg-wrap.panning { cursor: grabbing; }
+.strategy-svg-wrap.panning .marker-group { pointer-events: none; }
+
+.strategy-side-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: var(--text-heading);
+    font-size: 16px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.strategy-side-title i { color: var(--epm-green); }
+.selected-project-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--epm-green-dark);
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+.selected-project-meta {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+.metric-stack { display: grid; gap: 10px; margin: 16px 0; }
+.metric-row {
+    border: 1px solid var(--border-light);
+    background: #F8FAFC;
+    border-radius: 12px;
+    padding: 12px;
+}
+.metric-row-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.metric-row-value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    color: var(--text-heading);
+    margin-top: 4px;
+}
+.metric-row-sub { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+.strategy-comments-panel {
+    margin-top: 22px;
+    padding: 22px;
+}
+.strategy-comments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 16px;
+}
+.strategy-comments-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.strategy-comments-title i { color: var(--epm-green); }
+.strategy-comments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+.strategy-comment-mini {
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--epm-green);
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 14px;
+}
+.strategy-comment-mini.publico { border-left-color: var(--epm-blue); }
+.strategy-comment-mini-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+.strategy-comment-mini-name {
+    font-weight: 800;
+    color: var(--text-heading);
+    font-size: 13px;
+}
+.strategy-comment-mini-body {
+    color: var(--text-main);
+    font-size: 13px;
+    line-height: 1.5;
+}
+.strategy-empty-hint {
+    background: #F8FAFC;
+    border: 1px dashed var(--border-medium);
+    color: var(--text-muted);
+    border-radius: 14px;
+    padding: 18px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.strategy-tooltip {
+    position: fixed;
+    z-index: 50;
+    background: #0F172A;
+    color: #FFF;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    max-width: 260px;
+    box-shadow: var(--shadow-heavy);
+    pointer-events: none;
+    display: none;
+}
+.strategy-tooltip strong { font-family: 'Montserrat', sans-serif; }
+.strategy-filter-bar {
+    margin-bottom: 18px;
+}
+@media (max-width: 768px) {
+    .strategy-chart-tools { align-items: flex-start; }
+    .strategy-mini-kpis { justify-content: flex-start; }
+    .zoom-controls, .size-legend { justify-content: flex-start; }
+}
+
+@media (max-width: 980px) {
+    .strategy-map-layout { grid-template-columns: 1fr; }
+    .strategy-kpi-panel { position: static; }
+    .strategy-mini-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    .strategy-chart-card { min-height: auto; }
+    .strategy-svg-wrap { height: 430px; }
+}
+
+@media (max-width: 768px) {
+    .strategy-chart-header { align-items: flex-start; }
+    .strategy-legend { justify-content: flex-start; }
+    .strategy-svg-wrap { height: 380px; }
+    .marker-label {
+    pointer-events: none; font-size: 9px; }
+}
+
 /* === BOTONES === */
 .btn {
     padding: 12px 22px;
@@ -869,353 +1339,6 @@ h1, h2, h3, .brand-font { font-family: 'Montserrat', sans-serif; }
         grid-template-columns: repeat(4, 1fr);
     }
 }
-
-
-/* =====================================================
-   EPM PREMIUM ADMIN REFINEMENT - capa visual final
-   Mantiene intacta la funcionalidad del panel.
-===================================================== */
-:root {
-    --epm-ink: #082032;
-    --epm-surface: rgba(255,255,255,0.92);
-    --epm-glass: rgba(255,255,255,0.76);
-    --epm-line: rgba(226,232,240,0.82);
-    --premium-shadow: 0 22px 70px rgba(15,23,42,0.10);
-    --premium-shadow-soft: 0 10px 30px rgba(15,23,42,0.07);
-    --premium-green-glow: 0 16px 36px rgba(0,168,89,0.18);
-}
-
-body {
-    background:
-        radial-gradient(circle at 8% 6%, rgba(0,168,89,0.16), transparent 28%),
-        radial-gradient(circle at 92% 0%, rgba(0,51,160,0.13), transparent 30%),
-        radial-gradient(circle at 86% 88%, rgba(253,185,19,0.14), transparent 30%),
-        linear-gradient(180deg, #F8FBFD 0%, #EDF3F7 100%) !important;
-    background-attachment: fixed !important;
-}
-
-.container {
-    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.88)) !important;
-    border: 1px solid rgba(255,255,255,0.9) !important;
-    box-shadow: var(--premium-shadow) !important;
-    backdrop-filter: blur(16px);
-}
-
-.container::before {
-    height: 8px !important;
-    background: linear-gradient(90deg, var(--epm-green) 0%, var(--epm-green-light) 30%, var(--epm-blue) 72%, var(--epm-yellow) 100%) !important;
-}
-
-.header {
-    padding: 4px 4px 28px !important;
-    border-bottom: 1px solid rgba(226,232,240,0.78) !important;
-}
-
-.title-section h1 {
-    font-size: clamp(28px, 3vw, 42px) !important;
-    letter-spacing: -1.3px !important;
-    color: var(--epm-ink) !important;
-}
-
-.title-section h1 span {
-    background: linear-gradient(135deg, var(--epm-green-dark), var(--epm-green-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent !important;
-}
-
-.title-section .subtitle {
-    margin-top: 12px !important;
-    gap: 10px !important;
-    color: #516074 !important;
-}
-
-.title-section .subtitle::after {
-    content: 'Centro de control en tiempo real';
-    color: var(--epm-green-dark);
-    background: rgba(0,168,89,0.08);
-    border: 1px solid rgba(0,168,89,0.16);
-    border-radius: 999px;
-    padding: 4px 11px;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .7px;
-}
-
-.title-section .subtitle .admin-badge {
-    background: linear-gradient(135deg, var(--epm-blue), #061B58) !important;
-    border-radius: 999px !important;
-    padding: 5px 12px !important;
-    box-shadow: 0 8px 18px rgba(0,51,160,0.18);
-}
-
-.logo-epm-css {
-    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
-    border-radius: 18px 18px 18px 6px !important;
-    padding: 12px 26px !important;
-    box-shadow: var(--premium-green-glow) !important;
-    position: relative;
-    overflow: hidden;
-}
-.logo-epm-css::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent 15%, rgba(255,255,255,0.22), transparent 52%);
-    transform: translateX(-100%);
-    animation: epmShine 5s ease-in-out infinite;
-}
-@keyframes epmShine { 0%, 55% { transform: translateX(-120%); } 75%, 100% { transform: translateX(120%); } }
-
-.kpi-grid {
-    gap: 20px !important;
-}
-.kpi-card {
-    border: 1px solid rgba(226,232,240,0.86) !important;
-    border-radius: 22px !important;
-    padding: 24px 24px 22px !important;
-    background:
-        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.94)) !important;
-    box-shadow: var(--premium-shadow-soft) !important;
-}
-.kpi-card::before {
-    width: 100% !important;
-    height: 5px !important;
-    background: linear-gradient(90deg, var(--epm-green), var(--epm-green-light)) !important;
-}
-.kpi-card.blue::before { background: linear-gradient(90deg, var(--epm-blue), #3B82F6) !important; }
-.kpi-card.yellow::before { background: linear-gradient(90deg, var(--epm-yellow), #FACC15) !important; }
-.kpi-card.purple::before { background: linear-gradient(90deg, #7C3AED, #A78BFA) !important; }
-.kpi-card:hover {
-    transform: translateY(-5px) !important;
-    box-shadow: 0 22px 44px rgba(15,23,42,0.12) !important;
-}
-.kpi-value {
-    font-size: clamp(32px, 4vw, 44px) !important;
-    letter-spacing: -1.2px;
-}
-.kpi-label {
-    color: #546277 !important;
-}
-
-.nav-tabs {
-    background: rgba(241,245,249,0.72) !important;
-    border: 1px solid rgba(226,232,240,0.86) !important;
-    border-radius: 22px !important;
-    padding: 10px !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-}
-.tab-btn {
-    border-radius: 16px !important;
-    background: transparent !important;
-    min-height: 54px;
-}
-.tab-btn:hover {
-    background: rgba(255,255,255,0.9) !important;
-    color: var(--epm-green-dark) !important;
-    transform: translateY(-1px);
-}
-.tab-btn.active {
-    background: linear-gradient(135deg, var(--epm-ink), #111827) !important;
-    color: #FFF !important;
-    box-shadow: 0 14px 30px rgba(15,23,42,0.22) !important;
-}
-.tab-btn.active i { color: var(--epm-yellow); }
-
-.filters-bar, .podium-section, .records-table-container, .comment-card, .config-banner {
-    border-radius: 22px !important;
-    border: 1px solid rgba(226,232,240,0.88) !important;
-    background: var(--epm-surface) !important;
-    box-shadow: var(--premium-shadow-soft) !important;
-}
-.filters-bar {
-    padding: 18px !important;
-    gap: 12px !important;
-}
-.btn {
-    border-radius: 14px !important;
-    min-height: 44px;
-}
-.btn-primary {
-    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
-    box-shadow: var(--premium-green-glow) !important;
-}
-.btn-secondary {
-    background: #FFFFFF !important;
-    border: 1px solid rgba(203,213,225,0.9) !important;
-}
-.filter-pill {
-    border-radius: 999px !important;
-    padding: 9px 15px !important;
-    background: #FFFFFF !important;
-}
-.filter-pill.active {
-    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
-}
-.search-input {
-    border-radius: 999px !important;
-    min-height: 44px;
-    background: #FFFFFF !important;
-}
-
-.podium-section {
-    padding: clamp(22px, 3vw, 34px) !important;
-    position: relative;
-    overflow: hidden;
-}
-.podium-section::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 110px;
-    background: linear-gradient(90deg, rgba(0,168,89,0.06), rgba(0,51,160,0.04), rgba(253,185,19,0.05));
-    pointer-events: none;
-}
-.podium-section-header, .podium-container, .segment-rest-list { position: relative; z-index: 1; }
-.podium-section-title {
-    color: var(--epm-ink) !important;
-}
-.podium-section-title .segment-icon {
-    border-radius: 16px !important;
-    background: linear-gradient(135deg, var(--epm-green), var(--epm-green-dark)) !important;
-    box-shadow: var(--premium-green-glow) !important;
-}
-.podium-card {
-    border-radius: 22px !important;
-    background: linear-gradient(180deg, #FFFFFF, #F8FAFC) !important;
-    box-shadow: 0 18px 38px rgba(15,23,42,0.12) !important;
-}
-.podium-logo-fallback {
-    background: linear-gradient(135deg, var(--epm-green), var(--epm-blue)) !important;
-    border-radius: 20px !important;
-}
-.podium-name { font-size: 15px !important; }
-.podium-score { font-size: 36px !important; }
-.podium-base { border-radius: 18px 18px 4px 4px !important; }
-.podium-chip, .cell-cat-badge, .rest-votes {
-    border-radius: 999px !important;
-}
-.rest-row {
-    background: rgba(248,250,252,0.92) !important;
-    border: 1px solid rgba(226,232,240,0.75);
-    border-radius: 16px !important;
-    padding: 13px 16px !important;
-}
-.rest-row:hover {
-    background: #FFFFFF !important;
-    transform: translateX(2px);
-}
-
-.records-table-container {
-    overflow-x: auto !important;
-}
-.records-table {
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-    min-width: 1050px;
-}
-.records-table thead {
-    background: linear-gradient(135deg, var(--epm-ink), #102A43) !important;
-}
-.records-table thead th {
-    padding: 16px 14px !important;
-}
-.records-table tbody tr {
-    transition: all .18s ease;
-}
-.records-table tbody tr:hover {
-    background: #F8FCFA !important;
-}
-.records-table tbody td {
-    padding: 15px 14px !important;
-}
-.criteria-mini-grid {
-    grid-template-columns: repeat(7, minmax(34px, 1fr)) !important;
-    gap: 6px !important;
-    max-width: 320px !important;
-}
-.criteria-mini {
-    border-radius: 10px !important;
-    background: #FFFFFF !important;
-    min-width: 34px;
-}
-.criteria-mini-label {
-    font-size: 8px !important;
-    letter-spacing: .3px;
-}
-.criteria-mini-val {
-    font-size: 14px !important;
-}
-.cell-score, .comment-score-big, .rest-score {
-    color: var(--epm-green-dark) !important;
-}
-
-.comments-grid {
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)) !important;
-}
-.comment-card {
-    border-left: 0 !important;
-    position: relative;
-    overflow: hidden;
-}
-.comment-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--epm-green), var(--epm-green-light));
-}
-.comment-card.publico::before {
-    background: linear-gradient(90deg, var(--epm-blue), #60A5FA);
-}
-.comment-card:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 20px 45px rgba(15,23,42,0.12) !important;
-}
-.comment-score-big {
-    border-radius: 16px !important;
-    background: rgba(0,168,89,0.08) !important;
-}
-
-.loading-state, .empty-state, .empty-segment {
-    border-radius: 22px !important;
-    background: rgba(255,255,255,0.72) !important;
-    border: 1px dashed rgba(203,213,225,0.9);
-}
-
-@media (max-width: 768px) {
-    body { padding: 12px !important; }
-    .container { padding: 22px 16px !important; border-radius: 24px !important; }
-    .header { align-items: flex-start !important; }
-    .title-section .subtitle { align-items: flex-start !important; flex-wrap: wrap; }
-    .title-section .subtitle::after { width: fit-content; }
-    .logo-epm-css { width: 100%; max-width: 230px; }
-    .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; }
-    .kpi-card { padding: 18px 16px !important; border-radius: 18px !important; }
-    .kpi-value { font-size: 30px !important; }
-    .kpi-label { font-size: 9px !important; }
-    .nav-tabs { display: grid !important; grid-template-columns: 1fr !important; }
-    .tab-btn { min-width: 0 !important; width: 100%; justify-content: flex-start !important; padding-left: 18px !important; }
-    .filters-bar { flex-direction: column !important; align-items: stretch !important; }
-    .filters-bar > div[style*="flex:1"] { display: none; }
-    .filter-pills { width: 100%; }
-    .filter-pill { flex: 1 1 auto; justify-content: center; }
-    .podium-section { padding: 20px 14px !important; }
-    .podium-section-header { align-items: flex-start !important; }
-    .podium-section-meta { flex-direction: column; gap: 6px !important; }
-    .podium-card { padding: 18px 12px !important; }
-    .rest-row { grid-template-columns: 34px 1fr auto !important; }
-    .rest-votes { display: none; }
-    .comments-grid { grid-template-columns: 1fr !important; }
-    .criteria-mini-grid { grid-template-columns: repeat(7, 34px) !important; max-width: none !important; }
-}
-
-@media (max-width: 480px) {
-    .kpi-grid { grid-template-columns: 1fr !important; }
-    .podium-score { font-size: 30px !important; }
-    .records-table { min-width: 950px; }
-}
-
 </style>
 </head>
 <body>
@@ -1254,6 +1377,9 @@ body {
         </button>
         <button class="tab-btn" onclick="switchTab(event, 'comments')">
             <i class="fa-solid fa-comments"></i> Comentarios
+        </button>
+        <button class="tab-btn" onclick="switchTab(event, 'strategyMap')">
+            <i class="fa-solid fa-chart-scatter"></i> Mapa de Iniciativas
         </button>
     </div>
 
@@ -1326,6 +1452,23 @@ body {
             <div class="loading-state"><i class="fa-solid fa-spinner"></i></div>
         </div>
     </div>
+
+    <!-- ============ TAB 4: MAPA DINÁMICO DE INICIATIVAS ============ -->
+    <div id="strategyMap" class="view-section">
+        <div class="filters-bar strategy-filter-bar">
+            <label><i class="fa-solid fa-filter"></i> Filtrar gráfico:</label>
+            <div class="filter-pills" id="filterSegmentStrategy">
+                <button class="filter-pill active" data-segment="" onclick="filterStrategyMap(this)">Todos los segmentos</button>
+                <button class="filter-pill" data-segment="Generación" onclick="filterStrategyMap(this)">Generación</button>
+                <button class="filter-pill" data-segment="Transmisión" onclick="filterStrategyMap(this)">Transmisión</button>
+                <button class="filter-pill" data-segment="Distribución" onclick="filterStrategyMap(this)">Distribución</button>
+                <button class="filter-pill" data-segment="Comercialización" onclick="filterStrategyMap(this)">Comercialización</button>
+            </div>
+        </div>
+        <div id="strategyMapContent">
+            <div class="loading-state"><i class="fa-solid fa-spinner"></i></div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -1371,6 +1514,13 @@ let allRows = [];
 let currentRecordsFilter = "";
 let currentCommentCatFilter = "";
 let currentCommentSegFilter = "";
+let currentStrategySegmentFilter = "";
+let selectedStrategyProjectKey = null;
+const STRATEGY_DOMAIN_DEFAULT = { xMin: 1, xMax: 5, yMin: 1, yMax: 5 };
+let strategyDomain = { ...STRATEGY_DOMAIN_DEFAULT };
+let strategyPanState = null;
+let strategyRenderQueued = false;
+if (!window.requestAnimationFrame) { window.requestAnimationFrame = function(cb) { return setTimeout(cb, 16); }; }
 
 // ============================================================
 // CARGA DE DATOS
@@ -1387,6 +1537,9 @@ function loadData() {
         document.getElementById('commentsContent').innerHTML = emptyHTML(
             'fa-link-slash', 'Sin conexión', 'No hay datos para mostrar hasta que configures la URL.'
         );
+        document.getElementById('strategyMapContent').innerHTML = emptyHTML(
+            'fa-link-slash', 'Sin conexión', 'No hay datos para mostrar hasta que configures la URL.'
+        );
         renderKPIs();
         return;
     }
@@ -1394,6 +1547,7 @@ function loadData() {
     document.getElementById('podiumsContent').innerHTML = loadingHTML();
     document.getElementById('recordsContent').innerHTML = loadingHTML();
     document.getElementById('commentsContent').innerHTML = loadingHTML();
+    document.getElementById('strategyMapContent').innerHTML = loadingHTML();
 
     const url = GOOGLE_SHEETS_WEB_APP_URL + '?action=getAll&t=' + Date.now();
     fetch(url, { method: 'GET' })
@@ -1415,14 +1569,11 @@ function loadData() {
             document.getElementById('podiumsContent').innerHTML = errHTML;
             document.getElementById('recordsContent').innerHTML = errHTML;
             document.getElementById('commentsContent').innerHTML = errHTML;
+            document.getElementById('strategyMapContent').innerHTML = errHTML;
         });
 }
 
 function normalizeRow(r) {
-    // Criterios actualizados según la Guía del Evaluador:
-    // C1 Viabilidad técnica (20), C2 Viabilidad financiera (20), C3 Impacto territorial (15),
-    // C4 Innovación (15), C5 Marco regulatorio (15), C6 Alineación estratégica (10), C7 Calidad del pitch (5).
-    // Se dejan equivalencias con nombres antiguos para no perder lectura de registros históricos.
     return {
         fecha: r.fecha || r.Fecha || "",
         evaluador: r.evaluador || r.Evaluador || "",
@@ -1430,13 +1581,18 @@ function normalizeRow(r) {
         segmento: r.segmento || r.Segmento || "",
         empresa: r.empresa || r.Empresa || "",
         empresa_codigo: r.empresa_codigo || r["Código Empresa"] || r.empresa || r.Empresa || "",
-        c1: numOrEmpty(r.c1 || r["1. Viabilidad técnica"] || r["1. Viabilidad Técnica"] || r["2. Viabilidad Técnica"]),
-        c2: numOrEmpty(r.c2 || r["2. Viabilidad financiera"] || r["2. Viabilidad Financiera"] || r["3. Viabilidad Financiera"]),
-        c3: numOrEmpty(r.c3 || r["3. Impacto territorial"] || r["3. Impacto Territorial"] || r["4. Impacto Territorial"]),
-        c4: numOrEmpty(r.c4 || r["4. Innovación"] || r["6. Innovación"]),
-        c5: numOrEmpty(r.c5 || r["5. Posibilidad de ajuste de la idea al marco regulatorio actual o factibilidad con ajustes regulatorios"] || r["5. Marco regulatorio"] || r["7. Encaje Político y Regulatorio"]),
-        c6: numOrEmpty(r.c6 || r["6. Alineación estratégica"] || r["6. Alineación Estratégica"] || r["1. Alineación Estratégica"]),
-        c7: numOrEmpty(r.c7 || r["7. Calidad del pitch"] || r["7. Calidad del Pitch"] || r["8. Calidad del Pitch"]),
+        c1: numOrEmpty(r.c1 || r["1. Alineación Estratégica"]),
+        c2: numOrEmpty(r.c2 || r["2. Viabilidad Técnica"]),
+        c3: numOrEmpty(r.c3 || r["3. Viabilidad Financiera"]),
+        c4: numOrEmpty(r.c4 || r["4. Impacto Territorial"]),
+        c5: numOrEmpty(r.c5 || r["5. Métricas y Trazabilidad"]),
+        c6: numOrEmpty(r.c6 || r["6. Innovación"]),
+        c7: numOrEmpty(r.c7 || r["7. Encaje Político y Regulatorio"]),
+        c8: numOrEmpty(r.c8 || r["8. Calidad del Pitch"]),
+        // Campos base para el mapa dinámico. Se dejan robustos por si el formulario nuevo renombró criterios.
+        cTech: numOrEmpty(r.cTech || r["1. Viabilidad Técnica"] || r["1. Viabilidad técnica"] || r["2. Viabilidad Técnica"] || r["2. Viabilidad técnica"] || r.c1 || r.c2),
+        cFin: numOrEmpty(r.cFin || r["2. Viabilidad Financiera"] || r["2. Viabilidad financiera"] || r["3. Viabilidad Financiera"] || r["3. Viabilidad financiera"] || r.c2 || r.c3),
+        cImpact: numOrEmpty(r.cImpact || r["3. Impacto Territorial"] || r["3. Impacto territorial"] || r["4. Impacto Territorial"] || r["4. Impacto territorial"] || r.c3 || r.c4),
         promedio: parseFloat(r.promedio !== undefined ? r.promedio : r.Promedio) || 0,
         observaciones: r.observaciones || r.Observaciones || ""
     };
@@ -1473,6 +1629,23 @@ function renderAll() {
     renderPodiums();
     renderRecords();
     renderComments();
+    safeRenderStrategyMap();
+}
+
+function safeRenderStrategyMap() {
+    try {
+        renderStrategyMap();
+    } catch (err) {
+        console.error('[Mapa de iniciativas] Error al renderizar:', err);
+        const container = document.getElementById('strategyMapContent');
+        if (container) {
+            container.innerHTML = emptyHTML(
+                'fa-circle-exclamation',
+                'No se pudo cargar el mapa de iniciativas',
+                'El resto del aplicativo sigue funcionando. Revisa la consola para el detalle técnico o refresca los datos.'
+            );
+        }
+    }
 }
 
 // ============================================================
@@ -1716,7 +1889,7 @@ function renderRecords() {
                 <th>Cat.</th>
                 <th>Segmento</th>
                 <th>Empresa</th>
-                <th>Criterios ponderados (1–7)</th>
+                <th>Criterios (1–8)</th>
                 <th style="text-align:center;">Prom.</th>
                 <th>Observaciones</th>
             </tr>
@@ -1749,21 +1922,12 @@ function renderRecords() {
 }
 
 function renderCriteriaMini(r) {
-    const labels = ['VT','VF','IT','IN','MR','AE','CP'];
-    const titles = [
-        'Viabilidad técnica · 20 pts',
-        'Viabilidad financiera · 20 pts',
-        'Impacto territorial · 15 pts',
-        'Innovación · 15 pts',
-        'Marco regulatorio · 15 pts',
-        'Alineación estratégica · 10 pts',
-        'Calidad del pitch · 5 pts'
-    ];
-    const values = [r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7];
+    const labels = ['C1','C2','C3','C4','C5','C6','C7','C8'];
+    const values = [r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.c8];
     let html = '<div class="criteria-mini-grid">';
     values.forEach((v, i) => {
         const cls = v === '' ? '' : (v >= 4 ? 'high' : v >= 3 ? 'mid' : 'low');
-        html += `<div class="criteria-mini ${cls}" title="${titles[i]}">
+        html += `<div class="criteria-mini ${cls}">
             <div class="criteria-mini-label">${labels[i]}</div>
             <div class="criteria-mini-val">${v === '' ? '—' : v}</div>
         </div>`;
@@ -1856,6 +2020,669 @@ function formatDateShort(d) {
     return date.toLocaleString('es-CO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
 }
 
+
+// ============================================================
+// MAPA DINÁMICO DE INICIATIVAS
+// ============================================================
+function getWeightedCriterion(rows, field) {
+    const sharks = rows.filter(r => r.categoria === 'SHARK').map(r => parseFloat(r[field])).filter(v => !isNaN(v));
+    const publicos = rows.filter(r => r.categoria === 'Público').map(r => parseFloat(r[field])).filter(v => !isNaN(v));
+
+    const sharkAvg = sharks.length ? sharks.reduce((a, b) => a + b, 0) / sharks.length : null;
+    const publicoAvg = publicos.length ? publicos.reduce((a, b) => a + b, 0) / publicos.length : null;
+
+    let weightedSum = 0;
+    let totalWeight = 0;
+    if (sharkAvg !== null) {
+        weightedSum += sharkAvg * CATEGORY_WEIGHTS["SHARK"];
+        totalWeight += CATEGORY_WEIGHTS["SHARK"];
+    }
+    if (publicoAvg !== null) {
+        weightedSum += publicoAvg * CATEGORY_WEIGHTS["Público"];
+        totalWeight += CATEGORY_WEIGHTS["Público"];
+    }
+
+    return {
+        weighted: totalWeight > 0 ? weightedSum / totalWeight : null,
+        sharkAvg,
+        publicoAvg,
+        sharkCount: sharks.length,
+        publicoCount: publicos.length
+    };
+}
+
+function getStrategyProjects() {
+    const grouped = {};
+    allRows.forEach(r => {
+        const key = `${r.empresa_codigo || r.empresa}-${r.segmento}`;
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(r);
+    });
+
+    return Object.keys(grouped).map(key => {
+        const rows = grouped[key];
+        const first = rows[0];
+        const score = calculateProjectScore(rows);
+        const tech = getWeightedCriterion(rows, 'cTech');
+        const fin = getWeightedCriterion(rows, 'cFin');
+        const impact = getWeightedCriterion(rows, 'cImpact');
+        const comments = rows.filter(r => r.observaciones && r.observaciones.trim());
+        return {
+            key,
+            empresa_codigo: first.empresa_codigo,
+            empresa: getDisplayName(first.empresa_codigo || first.empresa),
+            segmento: first.segmento || 'Sin segmento',
+            x: tech.weighted,
+            y: fin.weighted,
+            sizeValue: impact.weighted,
+            tech,
+            fin,
+            impact,
+            score,
+            rows,
+            comments
+        };
+    }).filter(p => p.x !== null && p.y !== null && p.sizeValue !== null)
+      .sort((a, b) => b.score.weighted - a.score.weighted);
+}
+
+function filterStrategyMap(btn) {
+    document.querySelectorAll('#filterSegmentStrategy .filter-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentStrategySegmentFilter = btn.dataset.segment || '';
+    selectedStrategyProjectKey = null;
+    resetStrategyZoom(false);
+    renderStrategyMap();
+}
+
+
+function getFilteredStrategyProjects() {
+    const allProjects = getStrategyProjects();
+    return currentStrategySegmentFilter
+        ? allProjects.filter(p => p.segmento === currentStrategySegmentFilter)
+        : allProjects;
+}
+
+function isStrategyProjectVisible(p, domain = getStrategyDomain()) {
+    return p && p.x >= domain.xMin && p.x <= domain.xMax && p.y >= domain.yMin && p.y <= domain.yMax;
+}
+
+function countVisibleStrategyProjects(projects) {
+    return projects.filter(p => isStrategyProjectVisible(p)).length;
+}
+
+function requestStrategyViewportRefresh() {
+    if (strategyRenderQueued) return;
+    strategyRenderQueued = true;
+    window.requestAnimationFrame(() => {
+        strategyRenderQueued = false;
+        refreshStrategyViewport();
+    });
+}
+
+function refreshStrategyViewport() {
+    const projects = getFilteredStrategyProjects();
+    const svgWrap = document.getElementById('strategySvgWrap');
+    if (svgWrap) svgWrap.innerHTML = renderStrategySvg(projects);
+
+    const axisLabel = document.getElementById('strategyAxisWindow');
+    if (axisLabel) axisLabel.textContent = getStrategyDomainLabel();
+
+    const visibleKpi = document.getElementById('strategyVisibleMarkersKpi');
+    if (visibleKpi) visibleKpi.textContent = countVisibleStrategyProjects(projects);
+
+    const zoomKpi = document.getElementById('strategyZoomKpi');
+    if (zoomKpi) zoomKpi.textContent = getStrategyZoomLevel().toFixed(1) + 'x';
+
+    refreshSelectedStrategyKpis(projects);
+}
+
+function refreshSelectedStrategyKpis(projects) {
+    const selectedProject = projects.find(p => p.key === selectedStrategyProjectKey) || projects[0];
+    if (!selectedProject) return;
+
+    const selectedName = document.getElementById('strategySelectedNameKpi');
+    if (selectedName) selectedName.textContent = `${makeShortLabel(selectedProject.empresa, 0)} · ${selectedProject.segmento}`;
+
+    const techKpi = document.getElementById('strategySelectedTechKpi');
+    if (techKpi) techKpi.textContent = selectedProject.tech.weighted !== null ? selectedProject.tech.weighted.toFixed(2) : '—';
+
+    const finKpi = document.getElementById('strategySelectedFinKpi');
+    if (finKpi) finKpi.textContent = selectedProject.fin.weighted !== null ? selectedProject.fin.weighted.toFixed(2) : '—';
+
+    const impactKpi = document.getElementById('strategySelectedImpactKpi');
+    if (impactKpi) impactKpi.textContent = selectedProject.impact.weighted !== null ? selectedProject.impact.weighted.toFixed(2) : '—';
+}
+
+function renderStrategyMap() {
+    const container = document.getElementById('strategyMapContent');
+    if (!container) return;
+
+    const projects = getFilteredStrategyProjects();
+
+    if (allRows.length === 0 || projects.length === 0) {
+        container.innerHTML = emptyHTML(
+            'fa-chart-scatter',
+            'Sin datos suficientes para el mapa',
+            'Se requieren calificaciones en Viabilidad técnica, Viabilidad financiera e Impacto territorial para ubicar las iniciativas.'
+        );
+        return;
+    }
+
+    if (!selectedStrategyProjectKey || !projects.some(p => p.key === selectedStrategyProjectKey)) {
+        selectedStrategyProjectKey = projects[0].key;
+    }
+
+    const selectedProject = projects.find(p => p.key === selectedStrategyProjectKey) || projects[0];
+
+    container.innerHTML = `
+        <div class="strategy-map-layout">
+            <aside class="strategy-kpi-panel">
+                <div class="strategy-mini-kpis">
+                    <div class="strategy-mini-kpi">
+                        <div class="strategy-mini-kpi-label"><i class="fa-solid fa-location-dot"></i> Marcadores visibles</div>
+                        <div class="strategy-mini-kpi-value" id="strategyVisibleMarkersKpi">${countVisibleStrategyProjects(projects)}</div>
+                        <div class="strategy-mini-kpi-sub">Según filtro y zoom</div>
+                    </div>
+                    <div class="strategy-mini-kpi">
+                        <div class="strategy-mini-kpi-label"><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom activo</div>
+                        <div class="strategy-mini-kpi-value" id="strategyZoomKpi">${getStrategyZoomLevel().toFixed(1)}x</div>
+                        <div class="strategy-mini-kpi-sub">Ejes recalibrados</div>
+                    </div>
+                    <div class="strategy-mini-kpi">
+                        <div class="strategy-mini-kpi-label"><i class="fa-solid fa-screwdriver-wrench"></i> Técnica seleccionada</div>
+                        <div class="strategy-mini-kpi-value" id="strategySelectedTechKpi">${selectedProject.tech.weighted.toFixed(2)}</div>
+                        <div class="strategy-mini-kpi-sub" id="strategySelectedNameKpi">${escapeHtml(makeShortLabel(selectedProject.empresa, 0))} · ${escapeHtml(selectedProject.segmento)}</div>
+                    </div>
+                    <div class="strategy-mini-kpi">
+                        <div class="strategy-mini-kpi-label"><i class="fa-solid fa-coins"></i> Financiera seleccionada</div>
+                        <div class="strategy-mini-kpi-value" id="strategySelectedFinKpi">${selectedProject.fin.weighted.toFixed(2)}</div>
+                        <div class="strategy-mini-kpi-sub">Ponderado SHARK/Público</div>
+                    </div>
+                    <div class="strategy-mini-kpi">
+                        <div class="strategy-mini-kpi-label"><i class="fa-solid fa-map-location-dot"></i> Impacto seleccionado</div>
+                        <div class="strategy-mini-kpi-value" id="strategySelectedImpactKpi">${selectedProject.impact.weighted.toFixed(2)}</div>
+                        <div class="strategy-mini-kpi-sub">Define tamaño marcador</div>
+                    </div>
+                </div>
+            </aside>
+            <div class="strategy-chart-card">
+                <div class="strategy-chart-header">
+                    <div>
+                        <div class="strategy-chart-title"><i class="fa-solid fa-chart-scatter"></i> Mapa dinámico de iniciativas</div>
+                        <div class="strategy-chart-subtitle">
+                            Eje X: 1. Viabilidad técnica · Eje Y: 2. Viabilidad financiera · Tamaño: 3. Impacto territorial.<br>
+                            Vista: ${currentStrategySegmentFilter || 'Todos los segmentos'} · ${projects.length} iniciativa${projects.length === 1 ? '' : 's'} visible${projects.length === 1 ? '' : 's'}.<br>
+                            Cada variable se calcula con el ponderado ${Math.round(CATEGORY_WEIGHTS["SHARK"] * 100)}% SHARK y ${Math.round(CATEGORY_WEIGHTS["Público"] * 100)}% Público cuando existen ambas categorías.
+                        </div>
+                    </div>
+                    <div class="strategy-chart-tools">
+                        <div class="zoom-controls" aria-label="Controles de zoom del gráfico">
+                            <button class="zoom-btn" onclick="zoomStrategyMap(0.78)" title="Acercar"><i class="fa-solid fa-plus"></i></button>
+                            <button class="zoom-btn" onclick="zoomStrategyMap(1.28)" title="Alejar"><i class="fa-solid fa-minus"></i></button>
+                            <button class="zoom-btn zoom-reset" onclick="resetStrategyZoom(true)" title="Restablecer zoom">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="strategy-axis-window" id="strategyAxisWindow">${getStrategyDomainLabel()}</div>
+                <div class="strategy-svg-wrap" id="strategySvgWrap" title="Usa la rueda del mouse para zoom y arrastra para moverte">
+                    ${renderStrategySvg(projects)}
+                </div>
+                <div class="strategy-segment-descriptions">
+                    <div class="strategy-segment-title"><i class="fa-solid fa-shapes"></i> Descripción de segmentos y tamaño</div>
+                    ${renderSegmentDescriptions(projects)}
+                    <div class="size-legend" title="Tamaño calculado con 3. Impacto territorial ponderado" style="margin-top:10px; justify-content:flex-start;">
+                        <span>Impacto territorial</span>
+                        <span class="size-dot small"></span><span class="size-dot medium"></span><span class="size-dot large"></span>
+                        <span>menor a mayor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="strategy-comments-panel" id="strategyCommentsPanel">
+            ${renderStrategyProjectComments(selectedProject)}
+        </div>
+        <div class="strategy-tooltip" id="strategyTooltip"></div>
+    `;
+    setupStrategyZoomEvents();
+}
+
+function renderSegmentLegend(projects) {
+    const segments = [...new Set(projects.map(p => p.segmento))];
+    return segments.map(seg => {
+        const shape = getSegmentShape(seg);
+        return `<span class="legend-chip"><span class="legend-symbol ${shape}"></span>${escapeHtml(seg)}</span>`;
+    }).join('');
+}
+
+function renderSegmentDescriptions(projects) {
+    const allSegs = currentStrategySegmentFilter ? [currentStrategySegmentFilter] : SEGMENTOS;
+    const present = new Set(projects.map(p => p.segmento));
+    const segmentText = {
+        'Generación': 'Marcador circular para iniciativas de generación.',
+        'Transmisión': 'Marcador triangular para iniciativas de transmisión.',
+        'Distribución': 'Marcador cuadrado para iniciativas de distribución.',
+        'Comercialización': 'Marcador diamante para iniciativas de comercialización.'
+    };
+    const items = allSegs.filter(seg => present.has(seg) || currentStrategySegmentFilter === seg).map(seg => {
+        const shape = getSegmentShape(seg);
+        const count = projects.filter(p => p.segmento === seg).length;
+        return `<div class="strategy-segment-item">
+            <span class="legend-symbol ${shape}"></span>
+            <div class="strategy-segment-item-text">
+                <strong>${escapeHtml(seg)}</strong>
+                <span>${segmentText[seg] || 'Segmento de la iniciativa.'} ${count} marcador${count === 1 ? '' : 'es'}.</span>
+            </div>
+        </div>`;
+    }).join('');
+    return `<div class="strategy-segment-grid">${items}</div>`;
+}
+
+function getSegmentShape(segment) {
+    const shapes = {
+        'Generación': 'circle',
+        'Transmisión': 'triangle',
+        'Distribución': 'square',
+        'Comercialización': 'diamond'
+    };
+    return shapes[segment] || 'circle';
+}
+
+function renderStrategySvg(projects) {
+    const W = 920, H = 500;
+    const margin = { left: 76, right: 36, top: 34, bottom: 70 };
+    const plotW = W - margin.left - margin.right;
+    const plotH = H - margin.top - margin.bottom;
+    const domain = getStrategyDomain();
+    const xRange = domain.xMax - domain.xMin;
+    const yRange = domain.yMax - domain.yMin;
+    const zoomLevel = getStrategyZoomLevel();
+
+    const xScale = v => margin.left + ((v - domain.xMin) / xRange) * plotW;
+    const yScale = v => margin.top + (1 - ((v - domain.yMin) / yRange)) * plotH;
+    const inDomain = p => p.x >= domain.xMin && p.x <= domain.xMax && p.y >= domain.yMin && p.y <= domain.yMax;
+    const visibleProjects = projects.filter(inDomain);
+    const impacts = visibleProjects.length
+        ? visibleProjects.map(p => p.sizeValue).filter(v => !isNaN(v))
+        : projects.map(p => p.sizeValue).filter(v => !isNaN(v));
+    const minImpact = Math.min(...impacts);
+    const maxImpact = Math.max(...impacts);
+
+    // El tamaño se recalibra con el impacto visible y también responde al zoom,
+    // pero con límite para evitar que tape todo el mapa.
+    const zoomSizeFactor = Math.min(1.35, 0.88 + Math.log2(Math.max(1, zoomLevel)) * 0.16);
+    const minR = 9 * zoomSizeFactor;
+    const maxR = 42 * zoomSizeFactor;
+    const rScale = v => {
+        if (!isFinite(minImpact) || !isFinite(maxImpact)) return 23 * zoomSizeFactor;
+        if (Math.abs(maxImpact - minImpact) < 0.001) return 25 * zoomSizeFactor;
+        return minR + ((v - minImpact) / (maxImpact - minImpact)) * (maxR - minR);
+    };
+
+    const xTicks = niceStrategyTicks(domain.xMin, domain.xMax, 5);
+    const yTicks = niceStrategyTicks(domain.yMin, domain.yMax, 5);
+
+    let grid = '';
+    xTicks.forEach(t => {
+        const x = xScale(t);
+        if (x < margin.left - 1 || x > W - margin.right + 1) return;
+        grid += `<line class="grid-line" x1="${x}" y1="${margin.top}" x2="${x}" y2="${H - margin.bottom}"></line>`;
+        grid += `<text class="axis-tick" x="${x}" y="${H - margin.bottom + 24}" text-anchor="middle">${formatAxisTick(t)}</text>`;
+    });
+    yTicks.forEach(t => {
+        const y = yScale(t);
+        if (y < margin.top - 1 || y > H - margin.bottom + 1) return;
+        grid += `<line class="grid-line" x1="${margin.left}" y1="${y}" x2="${W - margin.right}" y2="${y}"></line>`;
+        grid += `<text class="axis-tick" x="${margin.left - 20}" y="${y + 4}" text-anchor="end">${formatAxisTick(t)}</text>`;
+    });
+
+    let quadrantLabels = '';
+    if (domain.xMin <= 3 && domain.xMax >= 3 && domain.yMin <= 3 && domain.yMax >= 3) {
+        quadrantLabels += `<line class="grid-line" x1="${xScale(3)}" y1="${margin.top}" x2="${xScale(3)}" y2="${H - margin.bottom}" stroke-dasharray="6 6"></line>`;
+        quadrantLabels += `<line class="grid-line" x1="${margin.left}" y1="${yScale(3)}" x2="${W - margin.right}" y2="${yScale(3)}" stroke-dasharray="6 6"></line>`;
+    }
+    if (domain.xMax > 3.35 && domain.yMax > 3.65) {
+        quadrantLabels += `<text class="quadrant-label" x="${xScale(Math.min(4.25, domain.xMax - 0.1))}" y="${yScale(Math.min(4.65, domain.yMax - 0.12))}" text-anchor="middle">Zona ideal</text>`;
+    }
+    if (domain.xMin < 2.2 && domain.yMin < 2.2) {
+        quadrantLabels += `<text class="quadrant-label" x="${xScale(Math.max(1.35, domain.xMin + 0.25))}" y="${yScale(Math.max(1.25, domain.yMin + 0.2))}">Zona crítica</text>`;
+    }
+
+    let markers = '';
+    projects.forEach((p, idx) => {
+        if (!inDomain(p)) return;
+        const x = xScale(p.x);
+        const y = yScale(p.y);
+        const r = rScale(p.sizeValue);
+        const shape = getSegmentShape(p.segmento);
+        const selected = p.key === selectedStrategyProjectKey ? ' selected' : '';
+        const label = makeShortLabel(p.empresa, idx + 1);
+        markers += renderMarkerShape(p, x, y, r, shape, selected, label);
+    });
+
+    return `<svg class="strategy-svg" id="strategySvg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <clipPath id="strategyPlotClip"><rect x="${margin.left}" y="${margin.top}" width="${plotW}" height="${plotH}" rx="14"></rect></clipPath>
+        </defs>
+        <rect x="${margin.left}" y="${margin.top}" width="${plotW}" height="${plotH}" rx="14" fill="#F8FAFC" stroke="#E2E8F0"></rect>
+        ${grid}
+        ${quadrantLabels}
+        <line class="axis-line" x1="${margin.left}" y1="${H - margin.bottom}" x2="${W - margin.right}" y2="${H - margin.bottom}"></line>
+        <line class="axis-line" x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${H - margin.bottom}"></line>
+        <text class="axis-label" x="${margin.left + plotW / 2}" y="${H - 22}" text-anchor="middle">1. Viabilidad técnica ponderada</text>
+        <text class="axis-label" transform="translate(22 ${margin.top + plotH / 2}) rotate(-90)" text-anchor="middle">2. Viabilidad financiera ponderada</text>
+        <g clip-path="url(#strategyPlotClip)">${markers}</g>
+    </svg>`;
+}
+
+
+function renderMarkerShape(p, x, y, r, shape, selected, label) {
+    const dataAttrs = `data-key="${escapeHtml(p.key)}" data-title="${escapeHtml(p.empresa)}" data-segment="${escapeHtml(p.segmento)}" data-x="${p.x.toFixed(2)}" data-y="${p.y.toFixed(2)}" data-impact="${p.sizeValue.toFixed(2)}"`;
+    let shapeHtml = '';
+    if (shape === 'square') {
+        shapeHtml = `<rect class="marker-shape" x="${x - r}" y="${y - r}" width="${r * 2}" height="${r * 2}" rx="7"></rect>`;
+    } else if (shape === 'diamond') {
+        const pts = `${x},${y-r} ${x+r},${y} ${x},${y+r} ${x-r},${y}`;
+        shapeHtml = `<polygon class="marker-shape" points="${pts}"></polygon>`;
+    } else if (shape === 'triangle') {
+        const pts = `${x},${y-r*1.1} ${x+r*1.08},${y+r*0.85} ${x-r*1.08},${y+r*0.85}`;
+        shapeHtml = `<polygon class="marker-shape" points="${pts}"></polygon>`;
+    } else {
+        shapeHtml = `<circle class="marker-shape" cx="${x}" cy="${y}" r="${r}"></circle>`;
+    }
+
+    return `<g class="marker-group${selected}" ${dataAttrs} onclick="selectStrategyProject(event, '${escapeJs(p.key)}')" onmousedown="event.stopPropagation()" onmousemove="showStrategyTooltip(event, this)" onmouseleave="hideStrategyTooltip()">
+        ${shapeHtml}
+        <circle class="marker-hit-area" cx="${x}" cy="${y}" r="${Math.max(r + 12, 30)}"></circle>
+        <text class="marker-label" x="${x}" y="${y + r + 15}" text-anchor="middle">${escapeHtml(label)}</text>
+    </g>`;
+}
+
+function getStrategyDomain() {
+    return strategyDomain || { ...STRATEGY_DOMAIN_DEFAULT };
+}
+
+function getStrategyZoomLevel() {
+    const d = getStrategyDomain();
+    const zx = (STRATEGY_DOMAIN_DEFAULT.xMax - STRATEGY_DOMAIN_DEFAULT.xMin) / (d.xMax - d.xMin);
+    const zy = (STRATEGY_DOMAIN_DEFAULT.yMax - STRATEGY_DOMAIN_DEFAULT.yMin) / (d.yMax - d.yMin);
+    return (zx + zy) / 2;
+}
+
+function getStrategyDomainLabel() {
+    const d = getStrategyDomain();
+    return `Rango visible · Técnica: ${d.xMin.toFixed(2)} a ${d.xMax.toFixed(2)} · Financiera: ${d.yMin.toFixed(2)} a ${d.yMax.toFixed(2)}`;
+}
+
+function formatAxisTick(v) {
+    return Math.abs(v - Math.round(v)) < 0.001 ? String(Math.round(v)) : v.toFixed(1);
+}
+
+function niceStrategyTicks(min, max, target = 5) {
+    const range = Math.max(0.0001, max - min);
+    const rawStep = range / Math.max(1, target - 1);
+    const pow = Math.pow(10, Math.floor(Math.log10(rawStep)));
+    const normalized = rawStep / pow;
+    let step = 1;
+    if (normalized <= 1) step = 1;
+    else if (normalized <= 2) step = 2;
+    else if (normalized <= 5) step = 5;
+    else step = 10;
+    step *= pow;
+    const start = Math.ceil(min / step) * step;
+    const ticks = [];
+    for (let t = start; t <= max + step * 0.5; t += step) {
+        const rounded = Math.round(t * 1000) / 1000;
+        if (rounded >= min - 0.0001 && rounded <= max + 0.0001) ticks.push(rounded);
+    }
+    if (!ticks.length) ticks.push(min, max);
+    return ticks.slice(0, 7);
+}
+
+function clampStrategyDomain(domain) {
+    const def = STRATEGY_DOMAIN_DEFAULT;
+    const minRange = 0.65;
+    const maxRange = 4;
+    let xRange = Math.max(minRange, Math.min(maxRange, domain.xMax - domain.xMin));
+    let yRange = Math.max(minRange, Math.min(maxRange, domain.yMax - domain.yMin));
+    let xCenter = (domain.xMin + domain.xMax) / 2;
+    let yCenter = (domain.yMin + domain.yMax) / 2;
+
+    let xMin = xCenter - xRange / 2;
+    let xMax = xCenter + xRange / 2;
+    let yMin = yCenter - yRange / 2;
+    let yMax = yCenter + yRange / 2;
+
+    if (xMin < def.xMin) { xMax += def.xMin - xMin; xMin = def.xMin; }
+    if (xMax > def.xMax) { xMin -= xMax - def.xMax; xMax = def.xMax; }
+    if (yMin < def.yMin) { yMax += def.yMin - yMin; yMin = def.yMin; }
+    if (yMax > def.yMax) { yMin -= yMax - def.yMax; yMax = def.yMax; }
+
+    return {
+        xMin: Math.max(def.xMin, xMin),
+        xMax: Math.min(def.xMax, xMax),
+        yMin: Math.max(def.yMin, yMin),
+        yMax: Math.min(def.yMax, yMax)
+    };
+}
+
+function clientToStrategyData(clientX, clientY) {
+    const wrap = document.getElementById('strategySvgWrap');
+    const d = getStrategyDomain();
+    if (!wrap) return { x: (d.xMin + d.xMax) / 2, y: (d.yMin + d.yMax) / 2 };
+    const rect = wrap.getBoundingClientRect();
+    const W = 920, H = 500;
+    const margin = { left: 76, right: 36, top: 34, bottom: 70 };
+    const sx = ((clientX - rect.left) / rect.width) * W;
+    const sy = ((clientY - rect.top) / rect.height) * H;
+    const fx = Math.max(0, Math.min(1, (sx - margin.left) / (W - margin.left - margin.right)));
+    const fy = Math.max(0, Math.min(1, (sy - margin.top) / (H - margin.top - margin.bottom)));
+    return {
+        x: d.xMin + fx * (d.xMax - d.xMin),
+        y: d.yMax - fy * (d.yMax - d.yMin)
+    };
+}
+
+function zoomStrategyMap(factor, clientX = null, clientY = null) {
+    const current = getStrategyDomain();
+    const focus = (clientX !== null && clientY !== null)
+        ? clientToStrategyData(clientX, clientY)
+        : { x: (current.xMin + current.xMax) / 2, y: (current.yMin + current.yMax) / 2 };
+
+    const newXRange = (current.xMax - current.xMin) * factor;
+    const newYRange = (current.yMax - current.yMin) * factor;
+    const fx = (focus.x - current.xMin) / (current.xMax - current.xMin);
+    const fy = (focus.y - current.yMin) / (current.yMax - current.yMin);
+
+    strategyDomain = clampStrategyDomain({
+        xMin: focus.x - fx * newXRange,
+        xMax: focus.x + (1 - fx) * newXRange,
+        yMin: focus.y - fy * newYRange,
+        yMax: focus.y + (1 - fy) * newYRange
+    });
+    refreshStrategyViewport();
+}
+
+function resetStrategyZoom(shouldApply = true) {
+    strategyDomain = { ...STRATEGY_DOMAIN_DEFAULT };
+    if (shouldApply) refreshStrategyViewport();
+}
+
+function setupStrategyZoomEvents() {
+    const wrap = document.getElementById('strategySvgWrap');
+    if (!wrap) return;
+
+    // Asignar handlers directos evita acumulación de eventos después de cada render.
+    wrap.onwheel = function(event) {
+        event.preventDefault();
+        const factor = event.deltaY < 0 ? 0.88 : 1.14;
+        zoomStrategyMap(factor, event.clientX, event.clientY);
+    };
+
+    wrap.onmousedown = function(event) {
+        if (event.button !== 0) return;
+        event.preventDefault();
+        strategyPanState = {
+            startX: event.clientX,
+            startY: event.clientY,
+            domain: { ...getStrategyDomain() }
+        };
+        wrap.classList.add('panning');
+
+        const moveHandler = function(moveEvent) {
+            if (!strategyPanState) return;
+            const rect = wrap.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            const startDomain = strategyPanState.domain;
+            const W = 920, H = 500;
+            const margin = { left: 76, right: 36, top: 34, bottom: 70 };
+            const plotW = W - margin.left - margin.right;
+            const plotH = H - margin.top - margin.bottom;
+            const dx = (moveEvent.clientX - strategyPanState.startX) / rect.width * W;
+            const dy = (moveEvent.clientY - strategyPanState.startY) / rect.height * H;
+            const xShift = -(dx / plotW) * (startDomain.xMax - startDomain.xMin);
+            const yShift = (dy / plotH) * (startDomain.yMax - startDomain.yMin);
+            strategyDomain = clampStrategyDomain({
+                xMin: startDomain.xMin + xShift,
+                xMax: startDomain.xMax + xShift,
+                yMin: startDomain.yMin + yShift,
+                yMax: startDomain.yMax + yShift
+            });
+            requestStrategyViewportRefresh();
+        };
+
+        const upHandler = function() {
+            strategyPanState = null;
+            wrap.classList.remove('panning');
+            window.removeEventListener('mousemove', moveHandler);
+            window.removeEventListener('mouseup', upHandler);
+            refreshStrategyViewport();
+        };
+
+        window.addEventListener('mousemove', moveHandler);
+        window.addEventListener('mouseup', upHandler);
+    };
+}
+
+function selectStrategyProject(eventOrKey, maybeKey) {
+    // Cuando se hace clic en un marcador, detenemos el evento para que el contenedor
+    // no lo interprete como inicio de arrastre/pan y no vuelva a pintar antes del click.
+    if (eventOrKey && typeof eventOrKey.stopPropagation === 'function') {
+        eventOrKey.stopPropagation();
+        eventOrKey.preventDefault();
+    }
+
+    const key = maybeKey || eventOrKey;
+    if (!key) return;
+
+    selectedStrategyProjectKey = String(key);
+    const projects = getFilteredStrategyProjects();
+    const selectedProject = projects.find(p => p.key === selectedStrategyProjectKey);
+    if (!selectedProject) return;
+
+    const svgWrap = document.getElementById('strategySvgWrap');
+    if (svgWrap) svgWrap.innerHTML = renderStrategySvg(projects);
+
+    refreshSelectedStrategyKpis(projects);
+
+    const commentsPanel = document.getElementById('strategyCommentsPanel');
+    if (commentsPanel) commentsPanel.innerHTML = renderStrategyProjectComments(selectedProject);
+
+    hideStrategyTooltip();
+    setupStrategyZoomEvents();
+}
+
+function showStrategyTooltip(event, el) {
+    const tooltip = document.getElementById('strategyTooltip');
+    if (!tooltip) return;
+    tooltip.innerHTML = `<strong>${el.dataset.title}</strong><br>${el.dataset.segment}<br>Técnica: ${el.dataset.x} · Financiera: ${el.dataset.y}<br>Impacto territorial: ${el.dataset.impact}`;
+    tooltip.style.left = (event.clientX + 14) + 'px';
+    tooltip.style.top = (event.clientY + 14) + 'px';
+    tooltip.style.display = 'block';
+}
+
+function hideStrategyTooltip() {
+    const tooltip = document.getElementById('strategyTooltip');
+    if (tooltip) tooltip.style.display = 'none';
+}
+
+function renderStrategyProjectDetail(p) {
+    if (!p) {
+        return `<div class="strategy-empty-hint">Selecciona una iniciativa en el gráfico para ver el detalle.</div>`;
+    }
+    return `<div class="strategy-side-title"><i class="fa-solid fa-location-crosshairs"></i> Iniciativa seleccionada</div>
+        <div class="selected-project-name">${escapeHtml(p.empresa)}</div>
+        <div class="selected-project-meta"><i class="fa-solid fa-layer-group"></i> ${escapeHtml(p.segmento)} · ${p.score.total} evaluación${p.score.total === 1 ? '' : 'es'}</div>
+        <div class="metric-stack">
+            ${renderMetricRow('fa-screwdriver-wrench', '1. Viabilidad técnica', p.tech)}
+            ${renderMetricRow('fa-coins', '2. Viabilidad financiera', p.fin)}
+            ${renderMetricRow('fa-map-location-dot', '3. Impacto territorial', p.impact)}
+            <div class="metric-row">
+                <div class="metric-row-label"><i class="fa-solid fa-trophy"></i> Ranking global ponderado</div>
+                <div class="metric-row-value">${p.score.weighted.toFixed(2)}</div>
+                <div class="metric-row-sub">SHARK ${p.score.sharkAvg !== null ? p.score.sharkAvg.toFixed(2) : '—'} · Público ${p.score.publicoAvg !== null ? p.score.publicoAvg.toFixed(2) : '—'}</div>
+            </div>
+        </div>
+        <div class="strategy-empty-hint">
+            Lectura sugerida: las iniciativas más fuertes quedan hacia la esquina superior derecha. El tamaño ayuda a priorizar impacto territorial.
+        </div>`;
+}
+
+function renderMetricRow(icon, label, metric) {
+    return `<div class="metric-row">
+        <div class="metric-row-label"><i class="fa-solid ${icon}"></i> ${label}</div>
+        <div class="metric-row-value">${metric.weighted !== null ? metric.weighted.toFixed(2) : '—'}</div>
+        <div class="metric-row-sub">SHARK ${metric.sharkAvg !== null ? metric.sharkAvg.toFixed(2) : '—'} (${metric.sharkCount}) · Público ${metric.publicoAvg !== null ? metric.publicoAvg.toFixed(2) : '—'} (${metric.publicoCount})</div>
+    </div>`;
+}
+
+function renderStrategyProjectComments(p) {
+    if (!p) {
+        return `<div class="strategy-comments-header"><div class="strategy-comments-title"><i class="fa-solid fa-comments"></i> Comentarios de la iniciativa</div></div>
+            <div class="strategy-empty-hint">Selecciona una iniciativa para ver sus comentarios.</div>`;
+    }
+    const count = p.comments.length;
+    let html = `<div class="strategy-comments-header">
+        <div class="strategy-comments-title"><i class="fa-solid fa-comments"></i> Comentarios de la iniciativa</div>
+        <span class="rest-votes">${count} comentario${count === 1 ? '' : 's'}</span>
+    </div>`;
+    if (count === 0) {
+        html += `<div class="strategy-empty-hint">Esta iniciativa no tiene comentarios registrados todavía.</div>`;
+        return html;
+    }
+    html += '<div class="strategy-comments-list">';
+    p.comments.sort((a, b) => new Date(b.fecha) - new Date(a.fecha)).forEach(r => {
+        const catClass = r.categoria === 'Público' ? 'publico' : '';
+        const catBadge = r.categoria === 'Público'
+            ? '<span class="cell-cat-badge publico">PÚBLICO</span>'
+            : '<span class="cell-cat-badge">SHARK</span>';
+        html += `<div class="strategy-comment-mini ${catClass}">
+            <div class="strategy-comment-mini-head">
+                <div>
+                    <div class="strategy-comment-mini-name">${escapeHtml(r.evaluador || '—')}</div>
+                    <div class="comment-eval-meta">${formatDateShort(r.fecha)}</div>
+                </div>
+                ${catBadge}
+            </div>
+            <div class="strategy-comment-mini-body">${escapeHtml(r.observaciones)}</div>
+        </div>`;
+    });
+    html += '</div>';
+    return html;
+}
+
+function makeShortLabel(name, fallback) {
+    const clean = String(name || '').replace(/EPM Comercial/gi, 'EPM').trim();
+    if (!clean) return `I${fallback}`;
+    const words = clean.split(/\s+/).filter(Boolean);
+    if (words.length === 1) return words[0].substring(0, 12);
+    return words.slice(0, 2).map(w => w.substring(0, 6)).join(' ');
+}
+
+function escapeJs(s) {
+    return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
 // ============================================================
 // EXPORTAR CSV
 // ============================================================
@@ -1864,12 +2691,12 @@ function exportCSV() {
         alert('No hay datos para exportar.');
         return;
     }
-    const headers = ['Fecha','Evaluador','Categoría','Segmento','Empresa','Código Empresa','Viabilidad técnica','Viabilidad financiera','Impacto territorial','Innovación','Marco regulatorio','Alineación estratégica','Calidad del pitch','Promedio ponderado','Observaciones'];
+    const headers = ['Fecha','Evaluador','Categoría','Segmento','Empresa','Código Empresa','C1','C2','C3','C4','C5','C6','C7','C8','Promedio','Observaciones'];
     const csvRows = [headers.join(',')];
     allRows.forEach(r => {
         const row = [
             r.fecha, r.evaluador, r.categoria, r.segmento, r.empresa, r.empresa_codigo,
-            r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.promedio, r.observaciones
+            r.c1, r.c2, r.c3, r.c4, r.c5, r.c6, r.c7, r.c8, r.promedio, r.observaciones
         ].map(v => csvEscape(v));
         csvRows.push(row.join(','));
     });
@@ -1915,12 +2742,7 @@ function switchTab(event, id) {
     event.currentTarget.classList.add('active');
 }
 
-// Auto-refresh cada 30 segundos
-let autoRefreshInterval = setInterval(() => {
-    if (GOOGLE_SHEETS_WEB_APP_URL) loadData();
-}, 30000);
-
-// Inicializar
+// Inicializar: la actualización queda manual con el botón "Refrescar datos".
 loadData();
 </script>
 </body>
