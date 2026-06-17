@@ -1226,6 +1226,257 @@ h1, h2, h3, .brand-font { font-family: 'Montserrat', sans-serif; }
     pointer-events: none; font-size: 9px; }
 }
 
+
+/* === DETALLE INTERACTIVO GENERACIÓN === */
+.generation-detail-panel {
+    display: grid;
+    gap: 16px;
+}
+.generation-detail-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(250px, 0.8fr);
+    gap: 16px;
+    align-items: stretch;
+}
+.generation-brief,
+.generation-summary-box {
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    background: linear-gradient(135deg, #F8FAFC, #FFFFFF);
+    padding: 18px;
+}
+.generation-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--epm-green-dark);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 8px;
+}
+.generation-company-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text-heading);
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+.generation-company-proposal {
+    color: var(--text-main);
+    font-size: 14px;
+    line-height: 1.55;
+}
+.generation-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+.generation-summary-kpi {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 12px;
+}
+.generation-summary-kpi span {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    color: var(--text-heading);
+    line-height: 1;
+}
+.generation-summary-kpi small {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-weight: 800;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.generation-guide {
+    border: 1px dashed var(--border-medium);
+    border-radius: 14px;
+    padding: 12px 14px;
+    color: var(--text-muted);
+    background: #F8FAFC;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+.generation-initiative-list {
+    display: grid;
+    gap: 12px;
+}
+.generation-initiative-card {
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    background: #FFFFFF;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+.generation-initiative-card[open] {
+    border-color: rgba(0,168,89,0.35);
+    box-shadow: var(--shadow-medium);
+}
+.generation-initiative-summary {
+    cursor: pointer;
+    padding: 15px 18px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+.generation-initiative-summary::-webkit-details-marker { display: none; }
+.generation-initiative-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.generation-initiative-name::before {
+    content: '\f0da';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--epm-green);
+    transition: transform 0.2s ease;
+}
+.generation-initiative-card[open] .generation-initiative-name::before {
+    transform: rotate(90deg);
+}
+.generation-chip-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.generation-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.2px;
+    border: 1px solid var(--border-light);
+    background: #F8FAFC;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+.generation-chip.impact-high {
+    background: #ECFDF5;
+    color: var(--epm-green-dark);
+    border-color: rgba(0,168,89,0.35);
+}
+.generation-chip.impact-medium {
+    background: #FFFBEB;
+    color: #92400E;
+    border-color: rgba(253,185,19,0.45);
+}
+.generation-chip.scalable {
+    background: #EFF6FF;
+    color: var(--epm-blue);
+    border-color: rgba(0,51,160,0.20);
+}
+.generation-chip.new-bet {
+    background: #F5F3FF;
+    color: #6D28D9;
+    border-color: rgba(109,40,217,0.2);
+}
+.generation-initiative-body {
+    border-top: 1px solid var(--border-light);
+    padding: 16px 18px 18px;
+    display: grid;
+    gap: 14px;
+}
+.generation-detail-text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-main);
+    background: #F8FAFC;
+    border-radius: 12px;
+    padding: 13px 14px;
+    border: 1px solid var(--border-light);
+}
+.generation-block-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 10px;
+}
+.generation-info-block {
+    border: 1px solid var(--border-light);
+    background: #FFFFFF;
+    border-radius: 13px;
+    padding: 12px;
+}
+.generation-info-block-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 7px;
+}
+.generation-info-block-title i { color: var(--epm-green); }
+.generation-info-block-text {
+    color: var(--text-main);
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 600;
+}
+.generation-hder-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.generation-hder-tag {
+    padding: 6px 8px;
+    border-radius: 9px;
+    background: #F0FDF4;
+    color: var(--epm-green-dark);
+    font-size: 10px;
+    font-weight: 900;
+    border: 1px solid rgba(0,168,89,0.22);
+}
+.generation-impact-note {
+    border-left: 4px solid var(--epm-yellow);
+    background: #FFFBEB;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #78350F;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+.generation-no-detail {
+    border: 1px dashed var(--border-medium);
+    border-radius: 14px;
+    background: #F8FAFC;
+    padding: 18px;
+    color: var(--text-muted);
+    font-weight: 700;
+    line-height: 1.5;
+}
+@media (max-width: 900px) {
+    .generation-detail-hero { grid-template-columns: 1fr; }
+    .generation-initiative-summary { grid-template-columns: 1fr; }
+    .generation-chip-row { justify-content: flex-start; }
+}
+
 /* === BOTONES === */
 .btn {
     padding: 12px 22px;
@@ -1508,6 +1759,143 @@ const segmentIcons = {
 };
 
 const SEGMENTOS = ["Generación", "Transmisión", "Distribución", "Comercialización"];
+
+// ============================================================
+// DETALLE ESTÁTICO DE INICIATIVAS - SEGMENTO GENERACIÓN
+// Fuente: hoja "Generación" del archivo Resultados Dia 1 SharkTank.xlsx
+// ============================================================
+const GENERATION_INITIATIVE_DETAILS = {"EPM":{"empresa":"EPM","propuestaGeneral":"Ser el generador más relevante, ofreciendo energía confiable y competitiva al país, con una matriz firme y diversificada\"","iniciativas":[{"iniciativa":"1. Sostenimiento","detalle":"Inversiones destinadas a asegurar la integridad, disponibilidad y vida útil de los 4,455 MW actuales mediante mantenimiento mayor y actualización tecnológica","operacion":"Confiabilidad: Asegura que el servicio no se interrumpa por obsolescencia técnica","innovacion":"","sostenibilidad":"","a1":"","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Es la base que genera el 49% de la utilidad del Grupo hoy; si falla, el flujo de caja se compromete","replicable":""},{"iniciativa":"2. Optimización","detalle":"Acciones técnicas para incrementar la potencia en activos existentes (meta 600 MW) sin necesidad de grandes obras civiles nuevas","operacion":"Confiabilidad","innovacion":"Innovación: Usa tecnología para maximizar lo que ya tenemos.","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Medio-Alto: Permite obtener energía firme adicional con menor inversión y menor riesgo socioambiental que un proyecto nuevo","replicable":""},{"iniciativa":"3. Iniciativa VULCANO (Expanción en Solares)","detalle":"Alianza estratégica para comprar el 51% de proyectos solares ya promocionados. Permite seleccionar los mejores proyectos y diversificar el riesgo de capital","operacion":"","innovacion":"Innovación: Cuando el proyecto adiciona solucuines BESS","sostenibilidad":"Sostenibilidad: Acelera la descarbonización","a1":"Todos por lo mejor.","a2":"","a3":"Transición sí, pero no solo así","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Clave para capturar la demanda de Datacenters e IA antes que la competencia entre 2026 y 2030","replicable":""},{"iniciativa":"3. Iniciativa TRITON (Expanción Hidros)","detalle":"Modelo de socio estratégico (51%) para desarrollar proyectos hídricos. EPM aporta experiencia técnica y el socio mitiga el riesgo financiero y de ejecución","operacion":"Confiabilidad: Aporta energía firme constante para enfrentar eventos como El Niño","innovacion":"","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"Energía por Colombia","a3":"","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Muy Alto: Es la respuesta directa al déficit de energía firme del -4.4% proyectado para 2027 en el país","replicable":""},{"iniciativa":"4. Expansión Propia","detalle":"Desarrollo de proyectos donde EPM asume el 100% del capital y la construcción","operacion":"Confiabilidad: Soberanía energética.","innovacion":"","sostenibilidad":"Sostenibilidad: Licencia social integral","a1":"","a2":"Energía por Colombia","a3":"Transición sí, pero no solo así","a4":"","nuevaApuesta":"No","escalable":"","impacto":"Muy Alto: Representa el liderazgo estratégico de EPM en la seguridad energética nacional","replicable":""}]},"CHEC":{"empresa":"CHEC","propuestaGeneral":"Transformarse de un operador tradicional a un \"Arquitecto de Resiliencia Energética\"\n. Sus metas a 2035 se centran en revertir la caída del 38% en la generación de los últimos 3 años y enfrentar el envejecimiento de activos (hasta 96 años)","iniciativas":[{"iniciativa":"1. Sostenimiento","detalle":"Mantenimiento mayor y modernización de activos con hasta 96 años de operación para asegurar la integridad y disponibilidad de los 262 MW de capacidad actual","operacion":"Confiabilidad: Detiene el deterioro físico de las plantas y asegura la continuidad del servicio","innovacion":"","sostenibilidad":"","a1":"","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Muy Alto: Sin esta inversión, la empresa no puede detener la caída del 38% en la generación experimentada recientemente","replicable":""},{"iniciativa":"2. Optimización","detalle":"Implementación de tecnología y operación remota de plantas para ganar 64 GWh/año adicionales y reducir los costos AOM en un 20%","operacion":"Confiabilidad: Maximiza el valor de los activos existentes con licencias vigentes","innovacion":"Innovación","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Medio-Alto: Es una inversión estratégica/opcional. Genera valor incremental, pero su ejecución depende de demostrar su rentabilidad financiera frente a otros proyectos","replicable":""},{"iniciativa":"3. Expansión","detalle":"Desarrollo de 95 MW en parques solares fotovoltaicos para aprovechar la complementariedad hídrica y diversificar la matriz de la filial.","operacion":"","innovacion":"","sostenibilidad":"Sostenibilidad: Acelera la descarbonización. Licencia social integral","a1":"","a2":"","a3":"Transición sí, pero no solo así","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Es la tecnología recomendada por los evaluadores para obtener resultados competitivos y rápidos en el territorio","replicable":""},{"iniciativa":"4. Exploración Geotérmica","detalle":"Proyecto piloto de 7 MW para validar la viabilidad técnica y financiera del potencial volcánico en la región (92 MW potenciales)","operacion":"","innovacion":"Innovación: Busca una fuente de energía firme base totalmente nueva para el Grupo","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"Energía por Colombia","a3":"","a4":"","nuevaApuesta":"No","escalable":"No","impacto":"Medio: Existe una alta incertidumbre técnica; los evaluadores sugieren viabilizarla antes de considerarla una apuesta en firme","replicable":""},{"iniciativa":"5. Unidad de Alta Ingeniería","detalle":"Evolución hacia servicios especializados en Industria 4.0 y soporte técnico avanzado para la resiliencia energética del territorio","operacion":"","innovacion":"Innovación: Posiciona a CHEC como un referente técnico y tecnológico en su área de influencia","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Medio-Alto: Actúa como un diferenciador estratégico que apoya el cumplimiento de la promesa de \"Arquitecto de Resiliencia\"","replicable":""}]},"ESSA":{"empresa":"ESSA","propuestaGeneral":"Proyecta una visión de largo plazo centrada en el liderazgo regional y la expansión. Convertirse en un referente de transformación y seguridad energética en su región","iniciativas":[{"iniciativa":"1. Recuperación con aumento de capacidad","detalle":"Modernización de las dos centrales actuales mediante el montaje de equipos de última tecnología. El objetivo es asegurar la integridad del activo y lograr un incremento real en los MW de potencia instalada","operacion":"Confiabilidad e Innovación: Asegura la base operativa y maximiza la remuneración por mayor capacidad.","innovacion":"Innovación","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"No","impacto":"Alto: Es el primer paso crítico. Los evaluadores recomiendan asegurar y potenciar lo existente antes de iniciar la expansión masiva","replicable":""},{"iniciativa":"2. Expansión","detalle":"Captura del mercado de transición energética en Santander, valorado en COP 16 billones, mediante nuevas fuentes de generación limpia","operacion":"","innovacion":"","sostenibilidad":"Sostenibilidad: Posiciona a la filial como el líder de la transformación regional.","a1":"","a2":"","a3":"Transición sí, pero no solo así","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Muy Alto: Representa una oportunidad de ingresos masiva a largo plazo, aunque requiere mayor concreción técnica","replicable":""},{"iniciativa":"3. Modelos de Alianza y Vehículos","detalle":"Implementación de socios estratégicos y vehículos de inversión para superar las limitaciones de participación del Grupo y viabilizar el alto CAPEX","operacion":"","innovacion":"Innovación: Permite el crecimiento a pesar de las restricciones normativas y financieras actuales.","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Es el habilitador necesario para transformar los \"deseos\" en proyectos ejecutables con cierre financiero","replicable":""}]},"ENSA /HET":{"empresa":"ENSA /HET","propuestaGeneral":"La estrategia de HET se centra en la estabilización y optimización de la Central Bonyic en Panamá, buscando pasar de una operación reactiva a una gestión de activos de clase mundial","iniciativas":[{"iniciativa":"1. Sostenimiento y Modernización","detalle":"Reemplazo de equipos críticos (SCADA, reguladores) e implementación de PAT para eficiencia interna. Busca extender la vida útil 25 años","operacion":"Confiabilidad: Asegura la base operativa y reduce el riesgo de fallas técnicas.","innovacion":"","sostenibilidad":"","a1":"","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Muy Alto: Es obligatorio. Sin esto, la obsolescencia técnica compromete la integridad de las 3 unidades de generación","replicable":""},{"iniciativa":"2. Optimización de Embalse","detalle":"Gestión integral de sedimentos para recuperar el volumen útil del embalse (meta: 58%) y maximizar la generación","operacion":"","innovacion":"Innovación y Confiabilidad: Maximiza el uso del recurso hídrico disponible en el territorio.","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Es estratégico. Permite ganar 36 GWh/año adicionales con una inversión baja ($1.6 MM), generando un retorno de $4.15 MM anuales","replicable":""},{"iniciativa":"3. Sostenibilidad Territorial","detalle":"Gestión de la concesión del Bosque Palo Seco y fortalecimiento del diálogo con la Comarca Naso Tjër","operacion":"","innovacion":"","sostenibilidad":"Sostenibilidad: Garantiza la licencia social y legal para operar hasta el 2050.","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Indispensable para la continuidad del negocio; el ahorro proyectado en la concesión es de $3.5 MM","replicable":""}]},"EPM Guatemala":{"empresa":"EPM Guatemala","propuestaGeneral":"EPM Guatemala busca capturar valor aprovechando el momentum de la transición energética en un sector que se mueve hacia la electrificación y descarbonización","iniciativas":[{"iniciativa":"1. Integración Vertical GEN+T&D","detalle":"Uso de la infraestructura de red propia para conectar generación y reducir compras a terceros.","operacion":"Confiabilidad: Estabiliza el margen y reduce exposición al mercado.","innovacion":"","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"","nuevaApuesta":"No","escalable":"No","impacto":"Muy Alto: Es el mayor diferenciador frente a competidores que no tienen red; genera ventaja competitiva en la zona","replicable":""},{"iniciativa":"2. Expansión Solar + BESS","detalle":"Proyectos de 5 MW (ej. Linieros) con baterías para arbitraje de potencia en horas pico.","operacion":"","innovacion":"Innovación: Proyecta introducir BESS como producto nuevo en el mercado local.","sostenibilidad":"","a1":"","a2":"","a3":"Transición sí, pero no solo así","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Clave para capturar la demanda de la transición energética de forma ágil y con retorno rápido","replicable":""},{"iniciativa":"3. Eficiencia Operacional (Sinergias)","detalle":"Reducción de costos AOM mediante la operación conjunta de activos de la cadena eléctrica.","operacion":"Confiabilidad: Mejora la experiencia del cliente y la rentabilidad del negocio.","innovacion":"","sostenibilidad":"","a1":"","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Medio-Alto: Vital para mantener los indicadores financieros en \"Verde\" ante las tensiones del sector","replicable":""}]},"EDEQ":{"empresa":"EDEQ","propuestaGeneral":"La propuesta de EDEQ, bajo el concepto \"Ceilán\", se aleja del modelo tradicional de construir grandes activos y se enfoca en un modelo de optimización técnica para la integración de Generación Distribuida (GD)","iniciativas":[{"iniciativa":"1. Modelo de Optimización \"Ceilán\"","detalle":"Algoritmo propio de EDEQ para identificar los puntos óptimos de conexión de 117 soluciones de GD en sus circuitos.","operacion":"","innovacion":"Innovación: Cambia el paradigma de grandes plantas por \"generación capilar\" eficiente","sostenibilidad":"","a1":"Todos por lo mejor.","a2":"","a3":"","a4":"","nuevaApuesta":"No","escalable":"Si","impacto":"Muy Alto: Es un multiplicador de valor con mínima inversión y alta viabilidad técnica.","replicable":""},{"iniciativa":"2. Eficiencia en Redes del Quindío","detalle":"Reducción del 2% en pérdidas y mejora del 1% en tensión mediante inyección distribuida en el territorio de EDEQ.","operacion":"Confiabilidad: Estabiliza la red de distribución local desde una óptica de generación técnica.","innovacion":"","sostenibilidad":"","a1":"","a2":"","a3":"","a4":"Afilando la sierra (Excelencia operacional).","nuevaApuesta":"No","escalable":"Si","impacto":"Alto: Mejora la calidad del servicio percibida por los clientes del Quindío sin grandes obras civiles.","replicable":""},{"iniciativa":"3. Gestión y Habilitación de Comunidades","detalle":"Rol de EDEQ como gestor técnico-comercial para conectar a prosumidores con el mercado energético.","operacion":"","innovacion":"","sostenibilidad":"Sostenibilidad: Habilita la transición energética regional y permite ofrecer tarifas diferenciadas.","a1":"","a2":"","a3":"Transición sí, pero no solo así","a4":"","nuevaApuesta":"No/Si","escalable":"Si","impacto":"Muy Alto: Posiciona a EDEQ como el referente del Grupo en soluciones distribuidas antes que la competencia.","replicable":""}]}};
+
+function normalizeCompanyKey(value) {
+    return String(value || '')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toUpperCase()
+        .replace(/GRUPO|COMERCIAL|ENERGIA/g, '')
+        .replace(/[^A-Z0-9]/g, '');
+}
+
+function resolveGenerationCompanyKey(company) {
+    const key = normalizeCompanyKey(company);
+    if (!key) return null;
+    if (key.includes('GUATEMALA')) return 'EPM Guatemala';
+    if (key.includes('ENSA') || key.includes('HET') || key.includes('BONYIC')) return 'ENSA /HET';
+    if (key.includes('CHEC')) return 'CHEC';
+    if (key.includes('ESSA')) return 'ESSA';
+    if (key.includes('EDEQ')) return 'EDEQ';
+    if (key === 'EPM' || key.includes('EPM')) return 'EPM';
+    const direct = Object.keys(GENERATION_INITIATIVE_DETAILS).find(k => normalizeCompanyKey(k) === key);
+    return direct || null;
+}
+
+function getGenerationCompanyDetail(company, segment) {
+    if (segment !== 'Generación') return null;
+    const key = resolveGenerationCompanyKey(company);
+    return key ? GENERATION_INITIATIVE_DETAILS[key] : null;
+}
+
+function getGenerationSummary(detail) {
+    const iniciativas = detail && Array.isArray(detail.iniciativas) ? detail.iniciativas : [];
+    const escalables = iniciativas.filter(i => /si|sí/i.test(i.escalable || '')).length;
+    const muyAlto = iniciativas.filter(i => /^\s*muy\s+alto/i.test(i.impacto || '')).length;
+    const alto = iniciativas.filter(i => /^\s*alto/i.test(i.impacto || '')).length;
+    const nuevaApuesta = iniciativas.filter(i => !/^\s*no\s*$/i.test(i.nuevaApuesta || '') && (i.nuevaApuesta || '').trim()).length;
+    return { total: iniciativas.length, escalables, altoImpacto: muyAlto + alto, nuevaApuesta };
+}
+
+function getImpactChipClass(text) {
+    const clean = String(text || '').toLowerCase();
+    if (clean.includes('muy alto') || clean.startsWith('alto')) return 'impact-high';
+    if (clean.includes('medio')) return 'impact-medium';
+    return '';
+}
+
+function renderGenerationDetailForProject(p) {
+    const detail = getGenerationCompanyDetail(p.empresa_codigo || p.empresa, p.segmento);
+    if (!detail) {
+        return `<div class="generation-no-detail">
+            <strong>Detalle no disponible para esta selección.</strong><br>
+            El enriquecimiento con iniciativas específicas está cargado por ahora solo para empresas del segmento Generación incluidas en la hoja analizada.
+        </div>`;
+    }
+
+    const summary = getGenerationSummary(detail);
+    let html = `<div class="generation-detail-panel">
+        <div class="strategy-comments-header">
+            <div class="strategy-comments-title"><i class="fa-solid fa-bolt"></i> Detalle de iniciativas de Generación</div>
+            <span class="rest-votes">${summary.total} iniciativa${summary.total === 1 ? '' : 's'}</span>
+        </div>
+        <div class="generation-detail-hero">
+            <div class="generation-brief">
+                <div class="generation-eyebrow"><i class="fa-solid fa-building"></i> Empresa seleccionada</div>
+                <div class="generation-company-title">${escapeHtml(detail.empresa)}</div>
+                <div class="generation-company-proposal">${escapeHtml(detail.propuestaGeneral || 'Sin propuesta general registrada.')}</div>
+            </div>
+            <div class="generation-summary-box">
+                <div class="generation-eyebrow"><i class="fa-solid fa-compass"></i> Lectura rápida</div>
+                <div class="generation-summary-grid">
+                    <div class="generation-summary-kpi"><span>${summary.total}</span><small>Iniciativas</small></div>
+                    <div class="generation-summary-kpi"><span>${summary.escalables}</span><small>Escalables</small></div>
+                    <div class="generation-summary-kpi"><span>${summary.altoImpacto}</span><small>Impacto alto</small></div>
+                    <div class="generation-summary-kpi"><span>${summary.nuevaApuesta}</span><small>Nueva apuesta</small></div>
+                </div>
+            </div>
+        </div>
+        <div class="generation-guide">
+            <i class="fa-solid fa-circle-info"></i>
+            Abre cada iniciativa para ver su alcance, el impacto estimado, su relación con operación/confiabilidad, innovación, sostenibilidad y las apuestas de la Hoja de Ruta.
+        </div>
+        <div class="generation-initiative-list">`;
+
+    detail.iniciativas.forEach((item, idx) => {
+        const hderTags = [item.a1, item.a2, item.a3, item.a4].filter(Boolean);
+        const dimensions = [
+            { icon: 'fa-shield-halved', title: 'Operación y confiabilidad', text: item.operacion },
+            { icon: 'fa-microchip', title: 'Innovación y tecnología', text: item.innovacion },
+            { icon: 'fa-seedling', title: 'Sostenibilidad y entorno', text: item.sostenibilidad }
+        ].filter(d => d.text && d.text.trim());
+
+        html += `<details class="generation-initiative-card" ${idx === 0 ? 'open' : ''}>
+            <summary class="generation-initiative-summary">
+                <div class="generation-initiative-name">${escapeHtml(item.iniciativa)}</div>
+                <div class="generation-chip-row">
+                    <span class="generation-chip ${getImpactChipClass(item.impacto)}"><i class="fa-solid fa-bullseye"></i> ${escapeHtml((item.impacto || 'Impacto no definido').split(':')[0])}</span>
+                    ${item.escalable ? `<span class="generation-chip scalable"><i class="fa-solid fa-share-nodes"></i> Escalable: ${escapeHtml(item.escalable)}</span>` : ''}
+                    ${item.nuevaApuesta ? `<span class="generation-chip new-bet"><i class="fa-solid fa-flag"></i> Nueva apuesta: ${escapeHtml(item.nuevaApuesta)}</span>` : ''}
+                </div>
+            </summary>
+            <div class="generation-initiative-body">
+                <div class="generation-detail-text">${escapeHtml(item.detalle || 'Sin detalle registrado.')}</div>
+                ${item.impacto ? `<div class="generation-impact-note"><strong>Impacto estimado:</strong> ${escapeHtml(item.impacto)}</div>` : ''}
+                <div class="generation-block-grid">
+                    ${dimensions.map(d => `<div class="generation-info-block">
+                        <div class="generation-info-block-title"><i class="fa-solid ${d.icon}"></i> ${escapeHtml(d.title)}</div>
+                        <div class="generation-info-block-text">${escapeHtml(d.text)}</div>
+                    </div>`).join('')}
+                    ${hderTags.length ? `<div class="generation-info-block">
+                        <div class="generation-info-block-title"><i class="fa-solid fa-route"></i> Alineación Hoja de Ruta</div>
+                        <div class="generation-hder-tags">${hderTags.map(t => `<span class="generation-hder-tag">${escapeHtml(t)}</span>`).join('')}</div>
+                    </div>` : ''}
+                    ${item.replicable ? `<div class="generation-info-block">
+                        <div class="generation-info-block-title"><i class="fa-solid fa-arrows-spin"></i> Replicabilidad</div>
+                        <div class="generation-info-block-text">${escapeHtml(item.replicable)}</div>
+                    </div>` : ''}
+                </div>
+            </div>
+        </details>`;
+    });
+
+    html += `</div></div>`;
+    return html;
+}
+
+function renderStrategyBottomPanel(p) {
+    if (p && p.segmento === 'Generación') {
+        return `${renderGenerationDetailForProject(p)}
+            <div style="margin-top:18px;">${renderStrategyProjectComments(p)}</div>`;
+    }
+    return renderStrategyProjectComments(p);
+}
+
 
 // Estado global
 let allRows = [];
@@ -2240,7 +2628,7 @@ function renderStrategyMap() {
             </div>
         </div>
         <div class="strategy-comments-panel" id="strategyCommentsPanel">
-            ${renderStrategyProjectComments(selectedProject)}
+            ${renderStrategyBottomPanel(selectedProject)}
         </div>
         <div class="strategy-tooltip" id="strategyTooltip"></div>
     `;
@@ -2586,7 +2974,7 @@ function selectStrategyProject(eventOrKey, maybeKey) {
     refreshSelectedStrategyKpis(projects);
 
     const commentsPanel = document.getElementById('strategyCommentsPanel');
-    if (commentsPanel) commentsPanel.innerHTML = renderStrategyProjectComments(selectedProject);
+    if (commentsPanel) commentsPanel.innerHTML = renderStrategyBottomPanel(selectedProject);
 
     hideStrategyTooltip();
     setupStrategyZoomEvents();
